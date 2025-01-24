@@ -1,5 +1,3 @@
-/* From Uiverse.io by Yaya12085 */ 
-
 body {
   display: flex;
   justify-content: center;
@@ -7,128 +5,215 @@ body {
   height: 100vh;
   margin: 0;
 }
-
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-width: 350px;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 20px;
-  position: relative;
-}
+/* From Uiverse.io by kyle1dev */ 
+.modern-form {
+    --primary: #3b82f6;
+    --primary-dark: #2563eb;
+    --primary-light: rgba(59, 130, 246, 0.1);
+    --success: #10b981;
+    --text-main: #1e293b;
+    --text-secondary: #64748b;
+    --bg-input: #f8fafc;
   
-.title {
-  font-size: 28px;
-  color: royalblue;
-  font-weight: 600;
-  letter-spacing: -1px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  padding-left: 30px;
-}
+    position: relative;
+    width: 300px;
+    padding: 24px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -2px rgba(0, 0, 0, 0.05),
+      inset 0 0 0 1px rgba(148, 163, 184, 0.1);
+    font-family:
+      system-ui,
+      -apple-system,
+      sans-serif;
+  }
   
-.title::before,.title::after {
-  position: absolute;
-  content: "";
-  height: 16px;
-  width: 16px;
-  border-radius: 50%;
-  left: 0px;
-  background-color: royalblue;
-}
+  .form-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-main);
+    margin: 0 0 24px;
+    text-align: center;
+    letter-spacing: -0.01em;
+  }
   
-.title::before {
-  width: 18px;
-  height: 18px;
-  background-color: royalblue;
-}
+  .input-group {
+    margin-bottom: 16px;
+  }
   
-.title::after {
-  width: 18px;
-  height: 18px;
-  animation: pulse 1s linear infinite;
-}
+  .input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
   
-.message, .signin {
-  color: rgba(88, 87, 87, 0.822);
-  font-size: 14px;
-}
+  .form-input {
+    width: 100%;
+    height: 40px;
+    padding: 0 36px;
+    font-size: 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: var(--bg-input);
+    color: var(--text-main);
+    transition: all 0.2s ease;
+  }
   
-.signin {
-  text-align: center;
-}
+  .form-input::placeholder {
+    color: var(--text-secondary);
+  }
   
-.signin a {
-  color: royalblue;
-}
+  .input-icon {
+    position: absolute;
+    left: 12px;
+    width: 16px;
+    height: 16px;
+    color: var(--text-secondary);
+    pointer-events: none;
+  }
   
-.signin a:hover {
-  text-decoration: underline royalblue;
-}
+  .password-toggle {
+    position: absolute;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
   
-.form label {
-  position: relative;
-}
+  .eye-icon {
+    width: 16px;
+    height: 16px;
+  }
   
-.form label .input {
-  width: 100%;
-  padding: 10px 10px 20px 10px;
-  outline: 0;
-  border: 1px solid rgba(105, 105, 105, 0.397);
-  border-radius: 10px;
-}
+  .submit-button {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    margin-top: 8px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.2s ease;
+  }
   
-.form label .input + span {
-  position: absolute;
-  left: 10px;
-  top: 15px;
-  color: grey;
-  font-size: 0.9em;
-  cursor: text;
-  transition: 0.3s ease;
-}
+  .button-glow {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+  }
   
-.form label .input:placeholder-shown + span {
-  top: 15px;
-  font-size: 0.9em;
-}
+  .form-footer {
+    margin-top: 16px;
+    text-align: center;
+    font-size: 13px;
+  }
   
-.form label .input:focus + span,.form label .input:valid + span {
-  top: 30px;
-  font-size: 0.7em;
-  font-weight: 600;
-}
+  .login-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
   
-.form label .input:valid + span {
-  color: green;
-}
+  .login-link span {
+    color: var(--primary);
+    font-weight: 500;
+  }
   
-.submit {
-  border: none;
-  outline: none;
-  background-color: royalblue;
-  padding: 10px;
-  border-radius: 10px;
-  color: #fff;
-  font-size: 16px;
-  transform: .3s ease;
-}
+  /* Hover & Focus States */
+  .form-input:hover {
+    border-color: #cbd5e1;
+  }
   
-.submit:hover {
-  background-color: rgb(56, 90, 194);
-}
+  .form-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: white;
+    box-shadow: 0 0 0 4px var(--primary-light);
+  }
   
-@keyframes pulse {
-  from {
+  .password-toggle:hover {
+    color: var(--primary);
+    transform: scale(1.1);
+  }
+  
+  .submit-button:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow:
+      0 4px 12px rgba(59, 130, 246, 0.25),
+      0 2px 4px rgba(59, 130, 246, 0.15);
+  }
+  
+  .submit-button:hover .button-glow {
+    transform: translateX(100%);
+  }
+  
+  .login-link:hover {
+    color: var(--text-main);
+  }
+  
+  .login-link:hover span {
+    color: var(--primary-dark);
+  }
+  
+  /* Active States */
+  .submit-button:active {
+    transform: translateY(0);
+    box-shadow: none;
+  }
+  
+  .password-toggle:active {
     transform: scale(0.9);
-    opacity: 1;
   }
   
-  to {
-    transform: scale(1.8);
-    opacity: 0;
+  /* Validation States */
+  .form-input:not(:placeholder-shown):valid {
+    border-color: var(--success);
   }
-}
+  
+  .form-input:not(:placeholder-shown):valid ~ .input-icon {
+    color: var(--success);
+  }
+  
+  /* Animation */
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-4px);
+    }
+    75% {
+      transform: translateX(4px);
+    }
+  }
+  
+  .form-input:not(:placeholder-shown):invalid {
+    border-color: #ef4444;
+    animation: shake 0.2s ease-in-out;
+  }
+  
+  .form-input:not(:placeholder-shown):invalid ~ .input-icon {
+    color: #ef4444;
+  }
+  
