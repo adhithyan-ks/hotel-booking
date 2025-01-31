@@ -8,12 +8,10 @@
         * {
             font-family: Arial, sans-serif;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid black;
+        img {
+          border-radius: 5px;
+          height: 200px;
+          width: auto;
         }
     </style>
     <title>Rooms</title>
@@ -52,13 +50,15 @@
     
     echo "<hr>";
     while ($row = mysqli_fetch_assoc($result)) {
-        echo "<div class='room'>";
+      echo "<div class='room'>";
+        echo "<img src='" . $row['image_url'] . "'>";
         echo "<p>Room ID:" . $row['room_id'] . "</p>";
         echo "<p>Room Type:" . $row['room_type'] . "</p>";
-        echo "<p>Description" . $row['description'] . "</p>";
-        echo "<p>Price per night" . $row['price_per_night'] . "</p>";
-        echo "<p>Availability Status" . $row['avail_status'] . "</p>";
+        echo "<p>Description:" . $row['description'] . "</p>";
+        echo "<p>Price per night:₹" . $row['price_per_night'] . "</p>";
+        echo "<p>Availability Status:" . $row['avail_status'] . "</p>";
         echo "<p>Image:" . $row['image_url'] . "</p><hr>";
+      echo "</div>";
     }
     echo "</table>";
     ?>
