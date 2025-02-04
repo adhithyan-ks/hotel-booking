@@ -23,7 +23,7 @@
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "hotel-booking";
+    $dbname = "hotel_db";
     //Ceate connection
     $conn = new mysqli($servername, $username, $password, $dbname);
     //Check connection
