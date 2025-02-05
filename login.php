@@ -1,17 +1,3 @@
-<?php
-  session_start();
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Simulate a login process (in a real application, this would involve checking credentials)
-    $email = $_POST['userEmail'];
-    $password = $_POST['userPassword'];
-    // Set the username in the session
-    $_SESSION['userEmail'] = $email;
-    $_SESSION['userPass'] = $password;
-    // Redirect to the home page
-    header('Location: home.php');
-    exit();
-  }
- ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -63,6 +49,36 @@
           <span class="button-text">Login</span>
           <div class="button-glow"></div>
         </button>
+        <?php
+          $servername = "localhost";
+          $username = "root";
+          $password = "";
+          $dbname = "hotel_db";
+          //Ceate connection
+          $conn = new mysqli($servername, $username, $password, $dbname);
+          //Check connection
+          if ($conn->connect_error) {
+              die("Connection failed: " . $conn->connect_error);
+          }
+          session_start();
+          if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Simulate a login process (in a real application, this would involve checking credentials)
+            $email = $_POST['userEmail'];
+            $password = $_POST['userPassword'];
+            $query = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
+            $result = $conn->query($query);
+            if ($result->num_rows > 0) {
+              // Set the username in the session
+              $_SESSION['userEmail'] = $email;
+              $_SESSION['userPass'] = $password;
+              // Redirect to the home page
+              header('Location: home.php');
+              exit();
+            } else {
+              echo "<div class='invalid'>Invalid email or password</div>";
+            }
+          }
+        ?>
 
         <div class="form-footer">
           <a class="login-link" href="signup.html">

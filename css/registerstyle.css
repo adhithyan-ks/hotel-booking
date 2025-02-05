@@ -216,4 +216,12 @@ body {
   .form-input:not(:placeholder-shown):invalid ~ .input-icon {
     color: #ef4444;
   }
+
+
+  .invalid {
+    color: #ef4444;
+    font-size: 12px;
+    margin-top: 4px;
+    text-align: center;
+  }
   

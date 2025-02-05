@@ -57,7 +57,7 @@ button:hover {
 }
 main {
     min-height: 100vh;
-    background-color: rgb(240, 240, 240);
+    background-color: rgb(255, 255, 255);
     padding: 10px 3%;
     color: rgb(0, 0, 0);
 }
