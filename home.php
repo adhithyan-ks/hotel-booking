@@ -24,7 +24,7 @@
       <?php
       session_start();
       if (isset($_SESSION['userEmail'])) {
-        echo "<a class='cta' href='account.php'><button><i class='fa-solid fa-user input-icon'></i>Account</button></a>";
+        echo "<a class='cta' href='account.php'><button><i class='fa-solid fa-user input-icon'></i> Account</button></a>";
       } else {
         echo "<a class='cta' href='login.php'><button><i class='fa-solid fa-user input-icon'></i> Login</button></a>";
       }
