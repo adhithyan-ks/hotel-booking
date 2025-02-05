@@ -21,13 +21,13 @@
         $query = "INSERT INTO users (name, email, password, phone) VALUES ('$name', '$email', '$password', '$phone')";
         mysqli_query($conn,$query);
 
-        header("Location: login.html");
-        exit(); /*
+        header("Location: login.php");
+        exit(); 
         if ($conn->query($query) === TRUE) {
             echo "New record created successfully";
         } else {
             echo "Error: " . $query . "<br>" . $conn->error;
-        }*/
+        }
     } else {
         echo "Invalid request";
     }

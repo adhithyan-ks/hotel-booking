@@ -81,7 +81,7 @@
         ?>
 
         <div class="form-footer">
-          <a class="login-link" href="signup.html">
+          <a class="login-link" href="signup.php">
             Don't have an account? <span>Sign up</span>
           </a>
         </div>

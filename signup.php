@@ -95,7 +95,7 @@
         </button>
 
         <div class="form-footer">
-          <a class="login-link" href="login.html">
+          <a class="login-link" href="login.php">
             Already have an account? <span>Login</span>
           </a>
         </div>
