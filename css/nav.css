@@ -4,7 +4,7 @@
     padding:0;
 }
 
-li, a, button {
+header li, header a, header button {
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
     font-size: 16px;
@@ -43,7 +43,7 @@ header h1 {
 .nav-links li a:hover {
     color: #0088a9;
 }
-button {
+header a button {
     padding: 9px 25px;
     background-color: rgb(236, 236, 236);
     color: rgb(2, 60, 167);
@@ -59,4 +59,5 @@ main {
     min-height: 100vh;
     background-color: rgb(240, 240, 240);
     padding: 10px 3%;
+    color: rgb(0, 0, 0);
 }

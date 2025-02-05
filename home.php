@@ -21,12 +21,30 @@
           <li><a href="about.html">About</a></li>
         </ul>
       </nav>
-      <a class="cta" href="login.html"
-        ><button><i class="fa-solid fa-user input-icon"></i> Login</button></a
-      >
+      <?php
+      session_start();
+      if (isset($_SESSION['userEmail'])) {
+        echo "<a class='cta' href='account.php'><button><i class='fa-solid fa-user input-icon'></i>Account</button></a>";
+      } else {
+        echo "<a class='cta' href='login.php'><button><i class='fa-solid fa-user input-icon'></i> Login</button></a>";
+      }
+      ?>
     </header>
 
-    <main class="container"></main>
+    <main class="container">
+    <?php
+      if (isset($_SESSION['userEmail'])) {
+        // If the user is already logged in
+        $email = $_SESSION['userEmail'];
+        echo "Welcome back, $email! <br>";
+        echo "<a href='logout.php'>Logout</a>";
+        } else {
+        // If the user is not logged in
+        echo "Welcome, Guest! <br>";
+        echo "<a href='login.php'>Login</a>";
+        }
+      ?>
+    </main>
 
     <!-- Footer section -->
     <footer>

@@ -1,3 +1,17 @@
+<?php
+  session_start();
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Simulate a login process (in a real application, this would involve checking credentials)
+    $email = $_POST['userEmail'];
+    $password = $_POST['userPassword'];
+    // Set the username in the session
+    $_SESSION['userEmail'] = $email;
+    $_SESSION['userPass'] = $password;
+    // Redirect to the home page
+    header('Location: home.php');
+    exit();
+  }
+ ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,7 +26,7 @@
     <main class="container" border>
       <!-- From Uiverse.io by Yaya12085 -->
       <!-- From Uiverse.io by kyle1dev -->
-      <form class="modern-form">
+      <form action="login.php" method="POST" class="modern-form">
         <div class="form-title">Login</div>
 
         <div class="form-body">
