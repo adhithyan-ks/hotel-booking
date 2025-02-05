@@ -17,17 +17,26 @@
         $email = $_POST['userEmail'];
         $password = $_POST['userPassword'];
         $phone = $_POST['userPhone'];
-
-        $query = "INSERT INTO users (name, email, password, phone) VALUES ('$name', '$email', '$password', '$phone')";
-        mysqli_query($conn,$query);
-
-        header("Location: login.php");
-        exit(); 
-        if ($conn->query($query) === TRUE) {
-            echo "New record created successfully";
+        $query = "SELECT * FROM users WHERE email = '$email'";
+        $result = $conn->query($query);
+        if ($result->num_rows > 0) {
+          echo "<script>alert('Email already exists');</script>";
+          //header('Location: signup.php');
         } else {
-            echo "Error: " . $query . "<br>" . $conn->error;
+            $query = "INSERT INTO users (name, email, password, phone) VALUES ('$name', '$email', '$password', '$phone')";
+            mysqli_query($conn,$query);
+            header("Location: login.php");
+            exit(); 
+            if ($conn->query($query) === TRUE) {
+                echo "New record created successfully";
+            } else {
+                echo "Error: " . $query . "<br>" . $conn->error;
+            } 
+        // Redirect to the home page
+        header('Location: home.php');
+        exit();
         }
+        
     } else {
         echo "Invalid request";
     }
