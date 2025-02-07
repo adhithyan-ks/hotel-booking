@@ -23,6 +23,8 @@
 .room-info {
     padding: 15px;
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 .room-info h2 {
     font-size: 20px;
@@ -38,7 +40,7 @@
 }
 .availability {
     font-weight: bold;
-    color: #d9534f;
+    color: #373737;
 }
 .button {
     display: inline-block;
@@ -49,7 +51,12 @@
     text-decoration: none;
     border-radius: 5px;
     font-weight: bold;
+    text-align: center;
+    width: fit-content;
 }
 .button:hover {
-    background: rgb(2, 60, 167);
+    background: rgb(1, 50, 140);
+}
+.availability span {
+    color: #721616;
 }

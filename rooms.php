@@ -52,8 +52,8 @@
             echo "<h2>" . $row['room_type'] . "</h2>";
             echo "<p>" . $row['description'] . "</p>";
             echo "<p class='room-price'>Price per night: ₹" . $row['price_per_night'] . "</p>";
-            echo "<p class='availability'>Status: " . $row['avail_status'] . "</p>";
-            echo "<a href='#' class='button'>Book Now</a>";
+            echo "<p class='availability'>Availability Status: <span>" . ($row['avail_status'] == 1 ? "Yes" : "No") . "</span></p>";
+            echo "<div><a href='#' class='button'>Book Now</a></div>";
             echo "</div>";
             echo "</div>";
         }
