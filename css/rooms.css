@@ -1,0 +1,55 @@
+* {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.room-card {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 800px;
+    margin: 20px auto;
+    background: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+.room-card img {
+    width: 250px;
+    height: 180px;
+    object-fit: cover;
+    border-right: 1px solid #ddd;
+}
+.room-info {
+    padding: 15px;
+    flex-grow: 1;
+}
+.room-info h2 {
+    font-size: 20px;
+    color: rgb(2, 60, 167);
+}
+.room-info p {
+    font-size: 14px;
+    margin: 5px 0;
+}
+.room-price {
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+}
+.availability {
+    font-weight: bold;
+    color: #d9534f;
+}
+.button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 15px;
+    background: rgb(2, 60, 167);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.button:hover {
+    background: rgb(2, 60, 167);
+}
