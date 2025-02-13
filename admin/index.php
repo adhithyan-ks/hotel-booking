@@ -18,5 +18,19 @@
         </ul>
     </nav>
     </header>
+    <main>
+    <?php
+      if (isset($_SESSION['userEmail'])) {
+        // If the user is already logged in
+        $email = $_SESSION['userEmail'];
+        echo "Welcome back, $email! <br>";
+        echo "<a href='logout.php'>Logout</a>";
+        } else {
+        // If the user is not logged in
+        echo "Welcome, Guest! <br>";
+        echo "<a href='login.php'>Login</a>";
+        }
+      ?>
+    </main>
 </body>
 </html>

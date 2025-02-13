@@ -24,8 +24,8 @@
                 required=""
                 placeholder="Email"
                 class="form-input"
-                id="email"
-                name="email"
+                id="adminEmail"
+                name="adminEmail"
                 type="email"
               />
             </div>
@@ -38,8 +38,8 @@
                 required=""
                 placeholder="Password"
                 class="form-input"
-                id="password"
-                name="password"
+                id="adminPassword"
+                name="adminPassword"
                 type="password"
               />
             </div>
