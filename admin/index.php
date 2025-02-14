@@ -14,6 +14,7 @@
         <ul class="nav-links">
             <li><a href="rooms.php">Rooms</a></li>
             <li><a href="users.php">Users</a></li>
+            <li><a href="admins.php">Admins</a></li>
             <li><a href="login.php">Login</a></li>
         </ul>
     </nav>
