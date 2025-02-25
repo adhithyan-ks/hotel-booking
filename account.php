@@ -34,11 +34,11 @@
     //Select all records from the users table
     // $query = "SELECT * FROM users WHERE email = 1";
     session_start();
-    if (isset($_SESSION['userEmail'])) {
+    if (isset($_SESSION['user_id'])) {
         // If the user is already logged in
-        $email = $_SESSION['userEmail'];
-        echo "Welcome back, $email! <br>";
-        $query = "SELECT * FROM users WHERE email = '$email'";
+        $user_id = $_SESSION['user_id'];
+        //echo "Welcome back, $email! <br>";
+        $query = "SELECT * FROM users WHERE user_id = '$user_id'";
         $result = $conn->query($query);
         while ($row = mysqli_fetch_assoc($result)) {
             echo "ID: " . $row['user_id'] . "<br>";

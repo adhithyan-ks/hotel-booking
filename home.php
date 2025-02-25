@@ -23,7 +23,7 @@
       </nav>
       <?php
       session_start();
-      if (isset($_SESSION['userEmail'])) {
+      if (isset($_SESSION['user_id'])) {
         echo "<a class='cta' href='account.php'><button><i class='fa-solid fa-user input-icon'></i> Account</button></a>";
       } else {
         echo "<a class='cta' href='login.php'><button><i class='fa-solid fa-user input-icon'></i> Login</button></a>";
@@ -33,17 +33,17 @@
 
     <main class="container">
     <?php
-      if (isset($_SESSION['userEmail'])) {
+      if (isset($_SESSION['user_id'])) {
         // If the user is already logged in
-        $email = $_SESSION['userEmail'];
-        echo "Welcome back, $email! <br>";
+        $user_id = $_SESSION['user_id'];
+        echo "Welcome back, $user_id! <br>";
         echo "<a href='logout.php'>Logout</a>";
-        } else {
+      } else {
         // If the user is not logged in
         echo "Welcome, Guest! <br>";
         echo "<a href='login.php'>Login</a>";
-        }
-      ?>
+      }
+    ?>
     </main>
 
     <!-- Footer section -->

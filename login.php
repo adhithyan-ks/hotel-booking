@@ -69,8 +69,12 @@
             $result = $conn->query($query);
             if ($result->num_rows > 0) {
               // Set the username in the session
-              $_SESSION['userEmail'] = $email;
-              $_SESSION['userPass'] = $password;
+            //  $_SESSION['userEmail'] = $email;
+              //$_SESSION['userPass'] = $password;
+              $user = $result->fetch_assoc(); // Fetch user data
+
+              $_SESSION['user_id'] = $user['user_id']; // Store user ID from database
+             // $_SESSION['user_role'] = $user['role']; // Store role (user/admin)
               // Redirect to the home page
               header('Location: home.php');
               exit();
