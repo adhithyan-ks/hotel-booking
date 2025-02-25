@@ -12,6 +12,10 @@
   <body>
     <header>
       <h1 class="logo">PalmHotel</h1>
+      <button class="hamburger">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      
       <nav>
         <ul class="nav-links">
           <li><a href="home.php">Home</a></li>
@@ -20,14 +24,23 @@
           <li><a href="contact.php">Contact</a></li>
           <li><a href="about.php">About</a></li>
         </ul>
+        
+        <?php
+        // Duplicate login/account button for mobile menu
+          session_start();
+          if (isset($_SESSION['user_id'])) {
+            echo "<div class='mobile-cta'><a href='account.php'><button><i class='fa-solid fa-user input-icon'></i> Account</button></a></div>";
+          } else {
+            echo "<div class='mobile-cta'><a href='login.php'><button><i class='fa-solid fa-user input-icon'></i> Login</button></a></div>";
+          }
+        ?>
       </nav>
       <?php
-      session_start();
-      if (isset($_SESSION['user_id'])) {
-        echo "<a class='cta' href='account.php'><button><i class='fa-solid fa-user input-icon'></i> Account</button></a>";
-      } else {
-        echo "<a class='cta' href='login.php'><button><i class='fa-solid fa-user input-icon'></i> Login</button></a>";
-      }
+        if (isset($_SESSION['user_id'])) {
+          echo "<a class='cta' href='account.php'><button><i class='fa-solid fa-user input-icon'></i> Account</button></a>";
+        } else {
+          echo "<a class='cta' href='login.php'><button><i class='fa-solid fa-user input-icon'></i> Login</button></a>";
+        }
       ?>
     </header>
 
@@ -55,4 +68,5 @@
     src="https://kit.fontawesome.com/2e5e758ab7.js"
     crossorigin="anonymous"
   ></script>
+  <script src="js/navbar.js"></script>
 </html>
