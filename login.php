@@ -10,8 +10,6 @@
 
   <body>
     <main class="container" border>
-      <!-- From Uiverse.io by Yaya12085 -->
-      <!-- From Uiverse.io by kyle1dev -->
       <form action="login.php" method="POST" class="modern-form">
         <div class="form-title">Login</div>
 
