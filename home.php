@@ -1,5 +1,3 @@
-<?php include 'includes/header.php'; ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +9,7 @@
     <title>Home</title>
 </head>
 <body>
-
+<?php include 'includes/header.php'; ?>
 <main class="container">
     <?php
     if (isset($_SESSION['user_id'])) {

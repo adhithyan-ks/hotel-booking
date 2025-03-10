@@ -10,26 +10,7 @@
   </head>
 
   <body>
-    <header>
-      <h1 class="logo">PalmHotel</h1>
-      <nav>
-        <ul class="nav-links">
-          <li><a href="home.php">Home</a></li>
-          <li><a href="rooms.php">Rooms</a></li>
-          <li><a href="services.php">Services</a></li>
-          <li><a href="contact.php">Contact</a></li>
-          <li><a href="about.php">About</a></li>
-        </ul>
-      </nav>
-      <?php
-      session_start();
-      if (isset($_SESSION['userEmail'])) {
-        echo "<a class='cta' href='account.php'><button><i class='fa-solid fa-user input-icon'></i> Account</button></a>";
-      } else {
-        echo "<a class='cta' href='login.php'><button><i class='fa-solid fa-user input-icon'></i> Login</button></a>";
-      }
-      ?>
-    </header>
+    <?php include 'includes/header.php'; ?>
 
     <main class="container">
     <?php

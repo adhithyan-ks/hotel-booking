@@ -1,3 +1,5 @@
+<?php include 'includes/config.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,60 +7,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/nav.css" />
     <link rel="stylesheet" href="css/rooms.css" />
-    <link rel="icon" type="image/x-icon" href="images\logo\hotellogo.png" />
+    <link rel="icon" type="image/x-icon" href="images/logo/hotellogo.png" />
     <title>Rooms</title>
 </head>
 <body>
-    <header>
-        <h1 class="logo">PalmHotel</h1>
-        <nav>
-            <ul class="nav-links">
-                <li><a href="home.php">Home</a></li>
-                <li><a href="rooms.php">Rooms</a></li>
-                <li><a href="services.php">Services</a></li>
-                <li><a href="contact.php">Contact</a></li>
-                <li><a href="about.php">About</a></li>
-            </ul>
-        </nav>
-        <?php
-        session_start();
-        if (isset($_SESSION['userEmail'])) {
-            echo "<a class='cta' href='account.php'><button><i class='fa-solid fa-user input-icon'></i> Account</button></a>";
-        } else {
-            echo "<a class='cta' href='login.php'><button><i class='fa-solid fa-user input-icon'></i> Login</button></a>";
-        }
-        ?>
-    </header>
+<?php include 'includes/header.php'; ?>
+<main class="container">
+    <?php
+    // Fetch all rooms from database
+    $query = "SELECT * FROM rooms";
+    $result = $conn->query($query);
 
-    <main class="container">
-        <?php
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "hotel_db";
-        
-        $conn = new mysqli($servername, $username, $password, $dbname);
-        
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            ?>
+            <div class="room-card">
+                <img src="<?= $row['image_url']; ?>" alt="Room Image">
+                <div class="room-info">
+                    <h2><?= $row['room_type']; ?></h2>
+                    <p><?= $row['description']; ?></p>
+                    <p class="room-price">Price per night: ₹<?= $row['price_per_night']; ?></p>
+                    <p class="availability">Availability Status: 
+                        <span><?= ($row['avail_status'] == 1) ? "Yes" : "No"; ?></span>
+                    </p>
+                    <div><a href="#" class="button">Book Now</a></div>
+                </div>
+            </div>
+            <?php
         }
-        
-        $query = "SELECT * FROM rooms";
-        $result = $conn->query($query);
-        
-        while ($row = mysqli_fetch_assoc($result)) {
-            echo "<div class='room-card'>";
-            echo "<img src='" . $row['image_url'] . "' alt='Room Image'>";
-            echo "<div class='room-info'>";
-            echo "<h2>" . $row['room_type'] . "</h2>";
-            echo "<p>" . $row['description'] . "</p>";
-            echo "<p class='room-price'>Price per night: ₹" . $row['price_per_night'] . "</p>";
-            echo "<p class='availability'>Availability Status: <span>" . ($row['avail_status'] == 1 ? "Yes" : "No") . "</span></p>";
-            echo "<div><a href='#' class='button'>Book Now</a></div>";
-            echo "</div>";
-            echo "</div>";
-        }
-        ?>
-    </main>
+    } else {
+        echo "<p>No rooms available.</p>";
+    }
+    ?>
+</main>
+
+<?php include 'includes/footer.php'; ?>
+<script src="https://kit.fontawesome.com/2e5e758ab7.js" crossorigin="anonymous"></script>
+<script src="js/navbar.js"></script>
 </body>
 </html>
