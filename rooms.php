@@ -1,5 +1,6 @@
-<?php include 'includes/config.php'; ?>
-
+<?php 
+include 'includes/config.php'; 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,38 +12,40 @@
     <title>Rooms</title>
 </head>
 <body>
-<?php include 'includes/header.php'; ?>
-<main class="container">
-    <?php
-    // Fetch all rooms from database
-    $query = "SELECT * FROM rooms";
-    $result = $conn->query($query);
+    <?php include 'includes/header.php'; ?>
 
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            ?>
-            <div class="room-card">
-                <img src="<?= $row['image_url']; ?>" alt="Room Image">
-                <div class="room-info">
-                    <h2><?= $row['room_type']; ?></h2>
-                    <p><?= $row['description']; ?></p>
-                    <p class="room-price">Price per night: ₹<?= $row['price_per_night']; ?></p>
-                    <p class="availability">Availability Status: 
-                        <span><?= ($row['avail_status'] == 1) ? "Yes" : "No"; ?></span>
-                    </p>
-                    <div><a href="#" class="button">Book Now</a></div>
+    <main class="container">
+        <?php
+        // Fetch all rooms from the database
+        $query = "SELECT * FROM rooms";
+        $result = $conn->query($query);
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                ?>
+                <div class="room-card">
+                    <img src="<?= $row['image_url']; ?>" alt="Room Image">
+                    <div class="room-info">
+                        <h2><?= $row['room_type']; ?></h2>
+                        <p><?= $row['description']; ?></p>
+                        <p class="room-price">Price per night: ₹<?= $row['price_per_night']; ?></p>
+                        <p class="availability">Availability Status: 
+                            <span><?= ($row['avail_status'] == 1) ? "Yes" : "No"; ?></span>
+                        </p>
+                        <!-- Pass room_id as a GET parameter -->
+                        <div><a href="booking.php?room_id=<?= $row['room_id']; ?>" class="button">Book Now</a></div>
+                    </div>
                 </div>
-            </div>
-            <?php
+                <?php
+            }
+        } else {
+            echo "<p>No rooms available.</p>";
         }
-    } else {
-        echo "<p>No rooms available.</p>";
-    }
-    ?>
-</main>
+        ?>
+    </main>
 
-<?php include 'includes/footer.php'; ?>
-<script src="https://kit.fontawesome.com/2e5e758ab7.js" crossorigin="anonymous"></script>
-<script src="js/navbar.js"></script>
+    <?php include 'includes/footer.php'; ?>
+    <script src="https://kit.fontawesome.com/2e5e758ab7.js" crossorigin="anonymous"></script>
+    <script src="js/navbar.js"></script>
 </body>
 </html>
