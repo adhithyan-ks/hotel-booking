@@ -16,14 +16,18 @@
         $user_id = $_SESSION['user_id'];
         //echo "Welcome back, $email! <br>";
         $query = "SELECT * FROM users WHERE user_id = '$user_id'";
-        $result = $conn->query($query);
-        while ($row = mysqli_fetch_assoc($result)) {
-            echo "ID: " . $row['user_id'] . "<br>";
-            echo "Name: " . $row['name'] . "<br>";
-            echo "Email: " . $row['email'] . "<br>";
-            echo "Phone: " . $row['phone'] . "<br>";
-            echo "Created at: " . $row['created_at'] . "<br>";
+
+        $result = mysqli_query($conn, $query);
+        $row = mysqli_fetch_assoc($result);
+        if ($row) {
+            echo "ID: {$row['user_id']}<br>";
+            echo "Name: {$row['name']}<br>";
+            echo "Email: {$row['email']}<br>";
+            echo "Phone: {$row['phone']}<br>";
+            echo "Created at: {$row['created_at']}<br>";
             echo "<a href='includes/logout.php'>Logout</a>";
+        } else {
+            echo "User not found!";
         }
     } else {
          // If the user is not logged in
