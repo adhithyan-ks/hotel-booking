@@ -15,9 +15,54 @@ include 'includes/config.php';
     <?php include 'includes/header.php'; ?>
 
     <main class="container">
+        <h2>Find Your Perfect Room</h2>
+
+        <!-- Filter Form -->
+        <form method="GET" class="filter-form">
+            <label for="roomType">Room Type:</label>
+            <select name="roomType" id="roomType">
+                <option value="">All</option>
+                <option value="Standard">Standard</option>
+                <option value="Deluxe">Deluxe</option>
+                <option value="Suite">Suite</option>
+                <option value="Family Room">Family Room</option>
+            </select>
+
+            <label for="priceRange">Max Price:</label>
+            <input type="number" name="priceRange" id="priceRange" placeholder="Enter max price">
+
+            <label for="availability">Availability:</label>
+            <select name="availability" id="availability">
+                <option value="">All</option>
+                <option value="1">Available</option>
+                <option value="0">Not Available</option>
+            </select>
+
+            <button type="submit" class="button">Search</button>
+        </form>
+
+        <!-- Fetch and Display Filtered Rooms -->
         <?php
-        // Fetch all rooms from the database
-        $query = "SELECT * FROM rooms";
+        // Default SQL query
+        $query = "SELECT * FROM rooms WHERE 1=1"; 
+
+        // Apply filters if selected
+        if (!empty($_GET['roomType'])) {
+            $roomType = $_GET['roomType'];
+            $query .= " AND room_type = '$roomType'";
+        }
+
+        if (!empty($_GET['priceRange'])) {
+            $maxPrice = $_GET['priceRange'];
+            $query .= " AND price_per_night <= $maxPrice";
+        }
+
+        if (isset($_GET['availability']) && $_GET['availability'] !== "") {
+            $availability = $_GET['availability'];
+            $query .= " AND avail_status = $availability";
+        }
+
+        // Execute Query
         $result = $conn->query($query);
 
         if ($result->num_rows > 0) {
@@ -32,14 +77,13 @@ include 'includes/config.php';
                         <p class="availability">Availability Status: 
                             <span><?= ($row['avail_status'] == 1) ? "Yes" : "No"; ?></span>
                         </p>
-                        <!-- Pass room_id as a GET parameter -->
                         <div><a href="booking.php?room_id=<?= $row['room_id']; ?>" class="button">Book Now</a></div>
                     </div>
                 </div>
                 <?php
             }
         } else {
-            echo "<p>No rooms available.</p>";
+            echo "<p>No rooms match your criteria.</p>";
         }
         ?>
     </main>
