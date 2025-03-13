@@ -20,54 +20,48 @@ include 'includes/config.php';
 
         <!-- Filter Form -->
         <form method="GET" class="filter-form">
-            <label for="roomType">Room Type:</label>
-            <select name="roomType" id="roomType">
-                <option value="">All</option>
-                <option value="Standard">Standard</option>
-                <option value="Deluxe">Deluxe</option>
-                <option value="Suite">Suite</option>
-                <option value="Family Room">Family Room</option>
-            </select>
+            <label for="checkInDate">Check-in Date:</label>
+            <input type="date" name="check_in_date" id="checkInDate" required>
 
-            <label for="priceRange">Max Price:</label>
-            <input type="number" name="priceRange" id="priceRange" placeholder="Enter max price">
+            <label for="checkOutDate">Check-out Date:</label>
+            <input type="date" name="check_out_date" id="checkOutDate" required>
 
-            <label for="availability">Availability:</label>
-            <select name="availability" id="availability">
-                <option value="">All</option>
-                <option value="1">Available</option>
-                <option value="0">Not Available</option>
-            </select>
-
-            <button type="submit" class="button">Search</button>
+            <button type="submit" class="button">Check Availability</button>
         </form>
 
-        <!-- Fetch and Display Filtered Rooms -->
+        <!-- Fetch and Display Available Room Types -->
         <?php
-        // Default SQL query
-        $query = "SELECT * FROM rooms WHERE 1=1"; 
+        // Check if user entered dates
+        $dateFilter = !empty($_GET['check_in_date']) && !empty($_GET['check_out_date']);
 
-        // Apply filters if selected
-        if (!empty($_GET['roomType'])) {
-            $roomType = $_GET['roomType'];
-            $query .= " AND room_type = '$roomType'";
+        if ($dateFilter) {
+            $check_in_date = $_GET['check_in_date'];
+            $check_out_date = $_GET['check_out_date'];
+
+            // Get total rooms per type and booked rooms count
+            $query = "SELECT rt.room_type, rt.description, rt.price_per_night, rt.image_url, 
+                    COUNT(r.room_id) AS total_rooms,
+                    (SELECT COUNT(*) FROM bookings b 
+                     JOIN rooms r2 ON b.room_id = r2.room_id
+                     WHERE r2.room_type = rt.room_type
+                     AND (b.check_in_date < '$check_out_date' AND b.check_out_date > '$check_in_date')
+                    ) AS booked_rooms
+              FROM rooms r
+              JOIN room_types rt ON r.room_type = rt.room_type
+              GROUP BY rt.room_type";
+
+        } else {
+            // Show only room types if no date is selected
+            $query = "SELECT * FROM room_types";
         }
 
-        if (!empty($_GET['priceRange'])) {
-            $maxPrice = $_GET['priceRange'];
-            $query .= " AND price_per_night <= $maxPrice";
-        }
-
-        if (isset($_GET['availability']) && $_GET['availability'] !== "") {
-            $availability = $_GET['availability'];
-            $query .= " AND avail_status = $availability";
-        }
-
-        // Execute Query
         $result = $conn->query($query);
 
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
+                // Calculate available rooms
+                $available_rooms = $dateFilter ? ($row['total_rooms'] - $row['booked_rooms']) : "N/A";
+
                 ?>
                 <div class="room-card">
                     <img src="<?= $row['image_url']; ?>" alt="Room Image">
@@ -75,16 +69,18 @@ include 'includes/config.php';
                         <h2><?= $row['room_type']; ?></h2>
                         <p><?= $row['description']; ?></p>
                         <p class="room-price">Price per night: ₹<?= $row['price_per_night']; ?></p>
-                        <p class="availability">Availability Status: 
-                            <span><?= ($row['avail_status'] == 1) ? "Yes" : "No"; ?></span>
+                        <p class="availability">
+                            <?= $dateFilter ? "Available Rooms: <strong>$available_rooms</strong>" : "Check dates to see availability"; ?>
                         </p>
-                        <div><a href="booking.php?room_id=<?= $row['room_id']; ?>" class="button">Book Now</a></div>
+                        <div>
+                            <a href="booking.php?room_type=<?= $row['room_type']; ?>&check_in_date=<?= $_GET['check_in_date'] ?? '' ?>&check_out_date=<?= $_GET['check_out_date'] ?? '' ?>" class="button">Book Now</a>
+                        </div>
                     </div>
                 </div>
                 <?php
             }
         } else {
-            echo "<p>No rooms match your criteria.</p>";
+            echo "<p>No rooms available.</p>";
         }
         ?>
     </main>
