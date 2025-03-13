@@ -1,89 +1,4 @@
-<?php 
-include 'includes/config.php';
-include 'includes/header.php';
 
-// Check if user is logged in; if not, redirect to login page
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit;
-}
-
-// Ensure a room_id is provided
-if (!isset($_GET['room_id'])) {
-    echo "Room not specified!";
-    exit;
-}
-
-$room_id = intval($_GET['room_id']);
-
-// Get the room details from the database
-$query = "SELECT * FROM rooms WHERE room_id = $room_id";
-$room_result = $conn->query($query);
-if ($room_result->num_rows == 0) {
-    echo "Invalid room!";
-    exit;
-}
-$room = $room_result->fetch_assoc();
-
-$availability_message = ""; // To store availability message
-
-// Check availability
-if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['check_availability'])) {
-    $check_in_date = $_POST['check_in_date'];
-    $check_out_date = $_POST['check_out_date'];
-
-    // Query to check if this room is already booked in the selected dates
-    $query = "SELECT * FROM bookings 
-              WHERE room_id = ? 
-              AND (check_in_date < ? AND check_out_date > ?)";
-    
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("iss", $room_id, $check_out_date, $check_in_date);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        $availability_message = "<p class='error-message'>Sorry, this room is already booked for the selected dates.</p>";
-    } else {
-        $availability_message = "<p class='success-message'>This room is available! You can proceed with booking.</p>";
-    }
-}
-
-// Process booking submission
-if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['confirm_booking'])) {
-    if (!empty($availability_message) && strpos($availability_message, 'Sorry') !== false) {
-        echo "<p class='error-message'>This room is not available for the selected dates.</p>";
-    } else {
-        $user_id = $_SESSION['user_id'];
-        $check_in_date = $_POST['check_in_date'];
-        $check_out_date = $_POST['check_out_date'];
-
-        // Calculate total nights and total price
-        $date1 = new DateTime($check_in_date);
-        $date2 = new DateTime($check_out_date);
-        $interval = $date1->diff($date2);
-        $nights = $interval->days;
-
-        if ($nights <= 0) {
-            echo "<p class='error-message'>Invalid dates! Check-out date must be after check-in date.</p>";
-        } else {
-            $total_price = $room['price_per_night'] * $nights;
-
-            // Insert booking into the bookings table
-            $stmt = $conn->prepare("INSERT INTO bookings (user_id, room_id, check_in_date, check_out_date, total_price) VALUES (?, ?, ?, ?, ?)");
-            $stmt->bind_param("iissd", $user_id, $room_id, $check_in_date, $check_out_date, $total_price);
-
-            if ($stmt->execute()) {
-                echo "<p class='success-message'>Booking successful! Total price: ₹" . $total_price . "</p>";
-                echo "<a href='account.php'>Go to your account</a>";
-            } else {
-                echo "<p class='error-message'>Error: " . $stmt->error . "</p>";
-            }
-            $stmt->close();
-        }
-    }
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -91,6 +6,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['confirm_booking'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="images/logo/hotellogo.png" />
     <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/booking.css">
     <title>Book Room</title>
     <style>
         /* General Styling */
@@ -208,6 +125,93 @@ input[type="date"] {
     </style>
 </head>
 <body>
+    <?php include 'includes/header.php'; ?>
+    <?php 
+include 'includes/config.php';
+
+
+// Check if user is logged in; if not, redirect to login page
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
+}
+
+// Ensure a room_id is provided
+if (!isset($_GET['room_id'])) {
+    echo "Room not specified!";
+    exit;
+}
+
+$room_id = intval($_GET['room_id']);
+
+// Get the room details from the database
+$query = "SELECT * FROM rooms WHERE room_id = $room_id";
+$room_result = $conn->query($query);
+if ($room_result->num_rows == 0) {
+    echo "Invalid room!";
+    exit;
+}
+$room = $room_result->fetch_assoc();
+
+$availability_message = ""; // To store availability message
+
+// Check availability
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['check_availability'])) {
+    $check_in_date = $_POST['check_in_date'];
+    $check_out_date = $_POST['check_out_date'];
+
+    // Query to check if this room is already booked in the selected dates
+    $query = "SELECT * FROM bookings 
+              WHERE room_id = ? 
+              AND (check_in_date < ? AND check_out_date > ?)";
+    
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("iss", $room_id, $check_out_date, $check_in_date);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $availability_message = "<p class='error-message'>Sorry, this room is already booked for the selected dates.</p>";
+    } else {
+        $availability_message = "<p class='success-message'>This room is available! You can proceed with booking.</p>";
+    }
+}
+
+// Process booking submission
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['confirm_booking'])) {
+    if (!empty($availability_message) && strpos($availability_message, 'Sorry') !== false) {
+        echo "<p class='error-message'>This room is not available for the selected dates.</p>";
+    } else {
+        $user_id = $_SESSION['user_id'];
+        $check_in_date = $_POST['check_in_date'];
+        $check_out_date = $_POST['check_out_date'];
+
+        // Calculate total nights and total price
+        $date1 = new DateTime($check_in_date);
+        $date2 = new DateTime($check_out_date);
+        $interval = $date1->diff($date2);
+        $nights = $interval->days;
+
+        if ($nights <= 0) {
+            echo "<p class='error-message'>Invalid dates! Check-out date must be after check-in date.</p>";
+        } else {
+            $total_price = $room['price_per_night'] * $nights;
+
+            // Insert booking into the bookings table
+            $stmt = $conn->prepare("INSERT INTO bookings (user_id, room_id, check_in_date, check_out_date, total_price) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bind_param("iissd", $user_id, $room_id, $check_in_date, $check_out_date, $total_price);
+
+            if ($stmt->execute()) {
+                echo "<p class='success-message'>Booking successful! Total price: ₹" . $total_price . "</p>";
+                echo "<a href='account.php'>Go to your account</a>";
+            } else {
+                echo "<p class='error-message'>Error: " . $stmt->error . "</p>";
+            }
+            $stmt->close();
+        }
+    }
+}
+?>
     <main class="container">
         <h2>Book Your Room</h2>
         <div class="room-details">
