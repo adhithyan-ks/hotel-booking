@@ -38,7 +38,7 @@ include 'includes/config.php';
             $check_in_date = $_GET['check_in_date'];
             $check_out_date = $_GET['check_out_date'];
 
-            // Get total rooms per type and booked rooms count
+            // Get total rooms per type and booked rooms count, sorted by price (ascending)
             $query = "SELECT rt.room_type, rt.description, rt.price_per_night, rt.image_url, 
                     COUNT(r.room_id) AS total_rooms,
                     (SELECT COUNT(*) FROM bookings b 
@@ -48,11 +48,12 @@ include 'includes/config.php';
                     ) AS booked_rooms
               FROM rooms r
               JOIN room_types rt ON r.room_type = rt.room_type
-              GROUP BY rt.room_type";
+              GROUP BY rt.room_type
+              ORDER BY rt.price_per_night ASC";
 
         } else {
-            // Show only room types if no date is selected
-            $query = "SELECT * FROM room_types";
+            // Show only room types sorted by price if no date is selected
+            $query = "SELECT * FROM room_types ORDER BY price_per_night ASC";
         }
 
         $result = $conn->query($query);
