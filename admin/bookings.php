@@ -16,18 +16,7 @@
     </style>
 </head>
 <body>
-    <div class="sidebar">
-        <h2>Admin Panel</h2>
-        <ul>
-            <li><a href="index.php">Dashboard</a></li>
-            <li><a href="bookings.php">Bookings</a></li>
-            <li><a href="rooms.php">Rooms</a></li>
-            <li><a href="users.php">Users</a></li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="admins.php">Admins</a></li>
-            <li><a href="logout.php">Logout</a></li>
-        </ul>
-    </div>
+    <?php include 'inc/sidebar.php'; ?>
     <div class="content">
         <h1>Welcome to the Admin Panel</h1>
         <p>Select an option from the sidebar to manage the hotel.</p>

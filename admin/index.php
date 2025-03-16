@@ -3,24 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <title>Hotel Admin Panel</title>
     <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
     </style>
 </head>
 <body>
-    <header>
-    <h1 class="logo">PalmHotel</h1>
-    <nav>
-        <ul class="nav-links">
-            <li><a href="rooms.php">Rooms</a></li>
-            <li><a href="users.php">Users</a></li>
-            <li><a href="admins.php">Admins</a></li>
-            <li><a href="login.php">Login</a></li>
-        </ul>
-    </nav>
-    </header>
-    <main>
-    <?php
+    <?php include 'inc/sidebar.php'; ?>
+    <div class="content">
+        <h1>Dashboard</h1>
+        <?php
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "hotel_db";
+        //Ceate connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        //Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        ?>
+        <?php
       if (isset($_SESSION['userEmail'])) {
         // If the user is already logged in
         $email = $_SESSION['userEmail'];
@@ -32,6 +43,6 @@
         echo "<a href='login.php'>Login</a>";
         }
       ?>
-    </main>
+    </div>
 </body>
-</html>
+</html> 
