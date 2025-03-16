@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['adminEmail'])) {
+if (!isset($_SESSION['admin_email'])) {
     header("Location: login.php");
     exit();
 }
@@ -20,6 +20,6 @@ if (!isset($_SESSION['adminEmail'])) {
         </ul>
     </div>
     <div class="admin-info">
-        Logged in as: <strong><?php echo isset($_SESSION['adminEmail']) ? $_SESSION['admin_name'] : 'Admin'; ?></strong>
+        Logged in as: <strong><?php echo isset($_SESSION['admin_email']) ? $_SESSION['admin_name'] : 'Admin'; ?></strong>
     </div>
 </div>
