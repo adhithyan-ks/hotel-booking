@@ -118,14 +118,17 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['confirm_booking'])) {
             $stmt->bind_param("iissd", $user_id, $room_id, $checkInDate, $checkOutDate, $totalPrice);
             
             if ($stmt->execute()) {
-                echo "<p class='success-message'>Booking confirmed! Total: ₹" . $totalPrice . "</p>";
-                echo "<a href='account.php'>View My Bookings</a>";
+               // echo "<p class='success-message'>Booking confirmed! Total: ₹" . $totalPrice . "</p>";
+               $availabilityMessage="<p class='success-message'>Booking confirmed! Total: ₹" . $totalPrice . "</p>";
+                //echo "<a href='account.php'>View My Bookings</a>";
+                $availabilityMessage.="<a href='account.php'>View My Bookings</a>";
             } else {
                 echo "<p class='error-message'>Booking failed: " . $stmt->error . "</p>";
             }
             $stmt->close();
         } else {
-            echo "<p class='error-message'>No rooms of this type available for the selected dates.</p>";
+            //echo "<p class='error-message'>No rooms of this type available for the selected dates.</p>";
+            $availabilityMessage="<p class='error-message'>No rooms of this type available for the selected dates.</p>";
         }
     }
 }
