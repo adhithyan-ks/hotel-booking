@@ -16,7 +16,7 @@ if (!isset($_SESSION['admin_email'])) {
             <li><a href="users.php">Users</a></li>
             <li><a href="#">Settings</a></li>
             <li><a href="admins.php">Admins</a></li>
-            <li><a href="logout.php">Logout</a></li>
+            <li><a href="inc/logout.php">Logout</a></li>
         </ul>
     </div>
     <div class="admin-info">
