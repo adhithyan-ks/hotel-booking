@@ -6,67 +6,81 @@ body {
 }
 
 .container {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 40px auto;
     background: #fff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
 }
 
-/* Heading */
 h2 {
     color: #333;
-}
-
-/* Room Details */
-.room-details {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 20px; /* Adjust as needed */
 }
 
-.room-details h3 {
-    color: #555;
-    font-size: 24px;
+.room-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    height: auto; /* Ensure height is based on content */
 }
 
-.room-details img {
+.room-image {
+    flex: 1;
+}
+
+.room-image img {
     width: 100%;
     max-width: 500px;
     border-radius: 10px;
-    margin-top: 10px;
+    height: auto; /* Ensure image height adjusts based on width */
 }
 
-.room-details p {
+.room-info {
+    flex: 1;
+    text-align: left;
+    padding: 0; /* Remove any default padding */
+    margin: 0; /* Remove any default margin */
+}
+
+.room-info h3 {
+    color: #555;
+    font-size: 24px;
+    margin: 0 0 10px 0; /* Adjust margins to reduce space */
+}
+
+.room-info p {
     font-size: 16px;
     color: #666;
-    margin: 10px 0;
+    margin: 0 0 10px 0; /* Adjust margins to reduce space */
 }
 
-/* Booking Form */
 form {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    gap: 10px;
+    margin: 0; /* Remove any default margin */
+    padding: 0; /* Remove any default padding */
 }
 
 label {
     font-size: 16px;
     color: #444;
-    margin: 10px 0 5px;
+    margin: 0; /* Remove any default margin */
 }
 
 input[type="date"] {
     padding: 10px;
-    width: 80%;
+    width: 100%;
     max-width: 300px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
+    margin: 0; /* Remove any default margin */
 }
 
-/* Button Styling */
 .button {
     background-color: #007bff;
     color: #fff;
@@ -74,37 +88,35 @@ input[type="date"] {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    margin-top: 15px;
     cursor: pointer;
     transition: background 0.3s ease;
+    margin: 0; /* Remove any default margin */
 }
 
 .button:hover {
     background-color: #0056b3;
 }
-/* Success & Error Messages */
+
 .success-message {
     color: green;
     font-size: 16px;
     font-weight: bold;
-    margin-top: 10px;
+    margin: 0; /* Remove any default margin */
 }
 
 .error-message {
     color: red;
     font-size: 16px;
     font-weight: bold;
-    margin-top: 10px;
+    margin: 0; /* Remove any default margin */
 }
 
-
-/* Responsive Design */
 @media (max-width: 768px) {
-    .container {
-        width: 90%;
+    .room-container {
+        flex-direction: column;
     }
 
-    .room-details img {
+    .room-image img {
         max-width: 100%;
     }
 }

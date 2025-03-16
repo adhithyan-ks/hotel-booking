@@ -118,16 +118,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['confirm_booking'])) {
             $stmt->bind_param("iissd", $user_id, $room_id, $checkInDate, $checkOutDate, $totalPrice);
             
             if ($stmt->execute()) {
-               // echo "<p class='success-message'>Booking confirmed! Total: ₹" . $totalPrice . "</p>";
                $availabilityMessage="<p class='success-message'>Booking confirmed! Total: ₹" . $totalPrice . "</p>";
-                //echo "<a href='account.php'>View My Bookings</a>";
                 $availabilityMessage.="<a href='account.php'>View My Bookings</a>";
             } else {
                 echo "<p class='error-message'>Booking failed: " . $stmt->error . "</p>";
             }
             $stmt->close();
         } else {
-            //echo "<p class='error-message'>No rooms of this type available for the selected dates.</p>";
             $availabilityMessage="<p class='error-message'>No rooms of this type available for the selected dates.</p>";
         }
     }
@@ -136,26 +133,29 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['confirm_booking'])) {
 
 <main class="container">
     <h2>Book Your Room</h2>
-    <div class="room-details">
-        <h3><?= $roomType; ?></h3>
-        <img src="<?= $roomTypeData['image_url']; ?>" alt="Room Image">
-        <p><?= $roomTypeData['description']; ?></p>
-        <p>Price per night: ₹<?= $roomTypeData['price_per_night']; ?></p>
+    <div class="room-container">
+        <div class="room-image">
+            <img src="<?= $roomTypeData['image_url']; ?>" alt="Room Image">
+        </div>
+        <div class="room-info">
+            <h3><?= $roomType; ?></h3>
+            <p><?= $roomTypeData['description']; ?></p>
+            <p>Price per night: ₹<?= $roomTypeData['price_per_night']; ?></p>
+            <form action="" method="POST">
+                <label for="checkInDate">Check-in Date:</label>
+                <input type="date" id="checkInDate" name="check_in_date" value="<?= $checkInDate ?>" required>
+
+                <label for="checkOutDate">Check-out Date:</label>
+                <input type="date" id="checkOutDate" name="check_out_date" value="<?= $checkOutDate ?>" required>
+
+                <button type="submit" name="check_availability" class="button">Check Availability</button>
+
+                <?= $availabilityMessage; ?>
+
+                <button type="submit" name="confirm_booking" class="button">Confirm Booking</button>
+            </form>
+        </div>
     </div>
-
-    <form action="" method="POST">
-        <label for="checkInDate">Check-in Date:</label>
-        <input type="date" id="checkInDate" name="check_in_date" value="<?= $checkInDate ?>" required>
-
-        <label for="checkOutDate">Check-out Date:</label>
-        <input type="date" id="checkOutDate" name="check_out_date" value="<?= $checkOutDate ?>" required>
-
-        <button type="submit" name="check_availability" class="button">Check Availability</button>
-
-        <?= $availabilityMessage; ?>
-
-        <button type="submit" name="confirm_booking" class="button">Confirm Booking</button>
-    </form>
 </main>
 
 <?php include 'includes/footer.php'; ?>
