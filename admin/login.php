@@ -1,58 +1,26 @@
+
 <?php
-/*
-session_start();
-include '../includes/config.php'; // Include database connection
+include '../includes/config.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    // Query to check admin credentials
-    $stmt = $conn->prepare("SELECT * FROM admins WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+  $query = "SELECT * FROM admins WHERE email = '$email' AND password = '$password'";
+  $result = $conn->query($query);
+  if ($result->num_rows > 0) {
     $admin = $result->fetch_assoc();
 
-    if ($admin && password_verify($password, $admin['password'])) {
-        $_SESSION['admin_name'] = $admin['admin_name'];
-        $_SESSION['admin_email'] = $admin['email'];
-        header("Location: index.php");
-        exit();
-    } else {
-        $error = "Incorrect email or password";
-    }
-}*/
+    $_SESSION['admin_id'] = $admin['admin_id'];
+    $_SESSION['admin_email'] = $admin['email']; 
+    $_SESSION['admin_name'] = $admin['admin_name'];
+
+    header('Location: index.php');
+    exit();
+  } else {
+    $error = "Invalid email or password";
+  }
+}
 ?>
-<?php
-          include '../includes/config.php';
-          session_start();
-          if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Simulate a login process (in a real application, this would involve checking credentials)
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-            $query = "SELECT * FROM admins WHERE email = '$email' AND password = '$password'";
-            $result = $conn->query($query);
-            if ($result->num_rows > 0) {
-              // Set the username in the session
-            //  $_SESSION['userEmail'] = $email;
-              //$_SESSION['userPass'] = $password;
-              $admin = $result->fetch_assoc(); // Fetch user data
-
-              $_SESSION['admin_id'] = $admin['admin_id']; // Store user ID from database
-              $_SESSION['admin_email'] = $admin['email']; // Store user ID from database
-              $_SESSION['admin_name'] = $admin['admin_name']; // Store user ID from database
-
-
-             // $_SESSION['user_role'] = $user['role']; // Store role (user/admin)
-              // Redirect to the home page
-              header('Location: index.php');
-              exit();
-            } else {
-              $error = "Invalid email or password";
-            }
-          }
-        ?>
 
 <!DOCTYPE html>
 <html lang="en">
