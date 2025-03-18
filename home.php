@@ -19,16 +19,14 @@
             <h1>Welcome to HB Website</h1>
             <p>Experience luxury and comfort at our premium hotel.</p>
 
-            <form class="booking-form">
+            <form class="booking-form" action="rooms.php" method="GET">
                 <label for="check-in">Check-in</label>
-                <input type="date" id="check-in" required>
-
+                <input type="date" id="check-in" name="check_in_date" required>
                 <label for="check-out">Check-out</label>
-                <input type="date" id="check-out" required>
-
-
-                <button type="submit">Submit</button>
+                <input type="date" id="check-out" name="check_out_date" required>
+                <button type="submit">Search Rooms</button>
             </form>
+
         </div>
     </section>
 
