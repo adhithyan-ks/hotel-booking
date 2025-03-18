@@ -20,9 +20,17 @@ header {
     padding: 10px 1%;
     background-color: rgb(2, 60, 167);
     color: white;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    position: relative;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);   
+    position: fixed;  /* This makes the header stay in place */
+    top: 0;           /* Ensures it stays at the top */
+    left: 0;          /* Aligns to the left */
+    width: 100%;      /* Makes it span the full width */
+    z-index: 1000;    /* Ensures it stays above other content */
 }
+body {
+    padding-top: 60px; /* Adjust based on the height of your header */
+}
+
 
 header h1 {
     font-family: "Times New Roman", Times, serif;

@@ -19,7 +19,7 @@
 
     <div class="about-container">
         <div class="about-image">
-            <img src="images/hotel/hotel_building.jpg" alt="Hotel Image">
+            <img src="images/home/home3.png" alt="Hotel Image">
         </div>
         <div class="about-text">
             <p>Welcome to [Your Hotel Name], a luxurious retreat where comfort meets elegance. Established in [Year], we have been dedicated to offering exceptional hospitality and unforgettable experiences to our guests.</p>
