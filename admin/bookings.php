@@ -1,3 +1,4 @@
+<?php include '../includes/config.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,17 +22,6 @@
         <h1>Welcome to the Admin Panel</h1>
         <p>Select an option from the sidebar to manage the hotel.</p>
         <?php
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "hotel_db";
-        //Ceate connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
-        //Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-        //Select all records from the users table
         $query = "SELECT * FROM bookings";
         $result = $conn->query($query);
         echo "<table><tr><th>Booking ID</th><th>User ID</th><th>Room ID</th><th>Check in date</th><th>Check out date</th><th>Total Price</th><th>Booked at</th></tr>";

@@ -1,3 +1,4 @@
+<?php include '../includes/config.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,18 +20,7 @@
     <?php include 'inc/sidebar.php'; ?>
     <div class="content">
         <h1>Users List</h1>
-
         <?php
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "hotel_db";
-        //Ceate connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
-        //Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
         //Select all records from the users table
         $query = "SELECT * FROM users";
         $result = $conn->query($query);
