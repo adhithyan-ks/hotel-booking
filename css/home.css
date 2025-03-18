@@ -1,0 +1,90 @@
+/* General Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: url('../images/home/home1.png') center/cover no-repeat;
+    animation: slideShow 20s infinite;
+}
+
+/* Overlay */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* Dark overlay */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.overlay h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.overlay p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+/* Booking Form */
+.booking-form {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    max-width: 600px;
+}
+
+.booking-form label {
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+}
+
+.booking-form input, 
+.booking-form select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100px;
+}
+
+.booking-form button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.booking-form button:hover {
+    background: #0056b3;
+}
+
+/* Animation for background image slider */
+@keyframes slideShow {
+    0%, 100% { background-image: url('../images/home/home1.png'); }
+    25% { background-image: url('../images/home/home2.png'); }
+    50% { background-image: url('../images/home/home3.png'); }
+    75% { background-image: url('../images/home/home4.png'); }
+}
