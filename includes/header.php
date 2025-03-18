@@ -1,5 +1,5 @@
 <header>
-    <h1 class="logo">PalmHotel</h1>
+    <h1 class="logo">HOTEL</h1>
     <button class="hamburger">
         <i class="fa-solid fa-bars"></i>
     </button>
