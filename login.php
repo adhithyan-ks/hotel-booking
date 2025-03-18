@@ -1,11 +1,27 @@
-<?php include 'includes/config.php' ?>
+<?php include 'includes/config.php';
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  // Simulate a login process (in a real application, this would involve checking credentials)
+  $email = $_POST['userEmail'];
+  $password = $_POST['userPassword'];
+  $query = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
+  $result = $conn->query($query);
+  if ($result->num_rows > 0) {
+    $user = $result->fetch_assoc(); // Fetch user data
+    $_SESSION['user_id'] = $user['user_id']; // Store user ID from database
+    header('Location: home.php');
+    exit();
+  } else {
+    echo "<div class='invalid'>Invalid email or password</div>";
+  }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/registerstyle.css" />
-    <link rel="icon" type="image/x-icon" href="images\logo\hotellogo.png" />
+    <link rel="icon" type="image/x-icon" href="images/logo/hotellogo.png" />
     <title>Login</title>
   </head>
 
@@ -48,24 +64,6 @@
           <span class="button-text">Login</span>
           <div class="button-glow"></div>
         </button>
-        <?php
-          if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Simulate a login process (in a real application, this would involve checking credentials)
-            $email = $_POST['userEmail'];
-            $password = $_POST['userPassword'];
-            $query = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
-            $result = $conn->query($query);
-            if ($result->num_rows > 0) {
-              $user = $result->fetch_assoc(); // Fetch user data
-              $_SESSION['user_id'] = $user['user_id']; // Store user ID from database
-              header('Location: home.php');
-              exit();
-            } else {
-              echo "<div class='invalid'>Invalid email or password</div>";
-            }
-          }
-        ?>
-
         <div class="form-footer">
           <a class="login-link" href="signup.php">
             Don't have an account? <span>Sign up</span>

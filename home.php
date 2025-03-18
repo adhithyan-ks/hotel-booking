@@ -15,7 +15,7 @@
     <?php
     if (isset($_SESSION['user_id'])) {
         echo "Welcome back, " . $_SESSION['user_id'] . "!<br>";
-        echo "<a href='logout.php'>Logout</a>";
+        echo "<a href='includes/logout.php'>Logout</a>";
     } else {
         echo "Welcome, Guest!<br>";
         echo "<a href='login.php'>Login</a>";
