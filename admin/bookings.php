@@ -24,7 +24,7 @@
         <?php
         $query = "SELECT * FROM bookings";
         $result = $conn->query($query);
-        echo "<table><tr><th>Booking ID</th><th>User ID</th><th>Room ID</th><th>Check in date</th><th>Check out date</th><th>Total Price</th><th>Booked at</th></tr>";
+        echo "<table><tr><th>ID</th><th>User ID</th><th>Room ID</th><th>Check in date</th><th>Check out date</th><th>Total Price</th><th>Booked at</th></tr>";
         while ($row = mysqli_fetch_assoc($result)) {
             echo "<tr><td>" . $row['booking_id'] . "</td>";
             echo "<td>" . $row['user_id'] . "</td>";

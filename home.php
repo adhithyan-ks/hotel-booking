@@ -25,22 +25,6 @@
 
                 <label for="check-out">Check-out</label>
                 <input type="date" id="check-out" required>
-
-                <label for="adults">Adult</label>
-                <select id="adults">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                </select>
-
-                <label for="children">Children</label>
-                <select id="children">
-                    <option>0</option>
-                    <option>1</option>
-                    <option>2</option>
-                </select>
-
                 <button type="submit">Submit</button>
             </form>
         </div>
