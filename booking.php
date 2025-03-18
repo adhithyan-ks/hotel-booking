@@ -118,8 +118,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['confirm_booking'])) {
             $stmt->bind_param("iissd", $user_id, $room_id, $checkInDate, $checkOutDate, $totalPrice);
             
             if ($stmt->execute()) {
-               $availabilityMessage="<p class='success-message'>Booking confirmed! Total: ₹" . $totalPrice . "</p>";
-                $availabilityMessage.="<a href='account.php'>View My Bookings</a>";
+              // $availabilityMessage="<p class='success-message'>Booking confirmed! Total: ₹" . $totalPrice . "</p>";
+              //  $availabilityMessage.="<a href='account.php'>View My Bookings</a>";
+                header("Location: confirmation.php?booking_id=" . $conn->insert_id);
+                exit();
             } else {
                 echo "<p class='error-message'>Booking failed: " . $stmt->error . "</p>";
             }
