@@ -1,72 +1,47 @@
-/* Filter Form Styling */
-.filter-form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 20px;
-    background: #f8f9fa;
-    padding: 15px;
+.booking-form {
+    background: rgb(231, 231, 231);
+    padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    
+    /* Match room-card width */
+    max-width: 800px; /* Same as .room-card */
+    width: 100%;
+
+    /* Centering */
+    margin: 20px auto;
+    justify-content: center;
+    text-align: center;
 }
 
-.filter-form label {
-    font-size: 16px;
+
+
+.booking-form label {
+    font-size: 14px;
     color: #333;
     font-weight: bold;
 }
 
-.filter-form select, 
-.filter-form input[type="number"] {
+.booking-form input, 
+.booking-form select {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 16px;
+    width: 100px;
 }
 
-.filter-form .button {
-    background-color: rgb(2, 60, 167);
+.booking-form button {
+    background: #007bff;
     color: white;
-    padding: 8px 15px;
     border: none;
+    padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
 }
 
-.filter-form .button:hover {
-    background-color: rgb(1, 50, 140);
-}
-
-/* No Results Message */
-form p {
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .room-card {
-        flex-direction: column;
-        max-width: 90%;
-    }
-
-    .room-card img {
-        width: 100%;
-        height: 200px;
-        border-right: none;
-        border-bottom: 1px solid #ddd;
-    }
-
-    .filter-form {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .filter-form select,
-    .filter-form input {
-        width: 100%;
-        max-width: 300px;
-    }
+.booking-form button:hover {
+    background: #0056b3;
 }

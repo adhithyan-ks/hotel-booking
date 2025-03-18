@@ -16,15 +16,13 @@
     <main class="container">
         <h2>Find Your Perfect Room</h2>
 
-        <!-- Filter Form -->
-        <form method="GET" class="filter-form">
-            <label for="checkInDate">Check-in Date:</label>
-            <input type="date" name="check_in_date" id="checkInDate" required>
+        <form class="booking-form" method="GET">
+            <label for="check-in">Check-in</label>
+            <input type="date" name="check_in_date" id="check-in" required>
 
-            <label for="checkOutDate">Check-out Date:</label>
-            <input type="date" name="check_out_date" id="checkOutDate" required>
-
-            <button type="submit" class="button">Check Availability</button>
+            <label for="check-out">Check-out</label>
+            <input type="date" name="check_out_date" id="check-out" required>
+            <button type="submit">Submit</button>
         </form>
 
         <!-- Fetch and Display Available Room Types -->

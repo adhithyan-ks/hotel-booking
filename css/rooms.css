@@ -20,7 +20,7 @@
 
 .room-card img {
     width: 250px;
-    height: 180px;
+    height: auto;
     object-fit: cover;
     border-right: 1px solid #ddd;
 }
