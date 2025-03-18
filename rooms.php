@@ -22,8 +22,13 @@
 
             <label for="check-out">Check-out</label>
             <input type="date" name="check_out_date" id="check-out" required>
+
             <button type="submit">Submit</button>
+
+            <!-- Clear Filters Button -->
+            <button type="button" class="clear-button" onclick="clearFilters()">Clear Filters</button>
         </form>
+
 
         <!-- Fetch and Display Available Room Types -->
         <?php
@@ -81,8 +86,12 @@
         }
         ?>
     </main>
-
     <?php include 'includes/footer.php'; ?>
+    <script>
+        function clearFilters() {
+            window.location.href = "rooms.php"; // Reload page to reset filters
+        }
+    </script>
     <script src="https://kit.fontawesome.com/2e5e758ab7.js" crossorigin="anonymous"></script>
     <script src="js/navbar.js"></script>
 </body>
