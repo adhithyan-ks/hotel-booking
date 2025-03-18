@@ -63,7 +63,7 @@
                 <div class="room-card">
                     <img src="<?= $row['image_url']; ?>" alt="Room Image">
                     <div class="room-info">
-                        <h2><?= $row['room_type']; ?></h2>
+                        <h3><?= $row['room_type']; ?></h3>
                         <p><?= $row['description']; ?></p>
                         <p class="room-price">Price per night: ₹<?= $row['price_per_night']; ?></p>
                         <p class="availability">

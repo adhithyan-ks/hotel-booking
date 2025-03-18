@@ -5,6 +5,10 @@
     padding: 0;
     box-sizing: border-box;
 }
+body main h2 {
+    text-align: center;
+    margin: 20px 0;
+}
 
 /* Room Cards */
 .room-card {
@@ -32,7 +36,7 @@
     flex-direction: column;
 }
 
-.room-info h2 {
+.room-info h3 {
     font-size: 20px;
     color: rgb(2, 60, 167);
 }
