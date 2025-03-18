@@ -1,3 +1,4 @@
+<?php include 'includes/config.php' ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +11,6 @@
 <body>
 <?php include 'includes/header.php'; ?>
 <?php 
-include 'includes/config.php';
 
 // Ensure user is logged in
 if (!isset($_SESSION['user_id'])) {

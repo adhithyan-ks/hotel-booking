@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 <header>
     <h1 class="logo">PalmHotel</h1>
     <button class="hamburger">

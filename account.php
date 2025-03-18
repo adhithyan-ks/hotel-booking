@@ -1,3 +1,4 @@
+<?php include 'includes/config.php' ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +14,6 @@
 <main class="container">
 <h1>Account Details</h1>
 <?php
-    include 'includes/config.php';
     if (isset($_SESSION['user_id'])) {
         // If the user is already logged in
         $user_id = $_SESSION['user_id'];
