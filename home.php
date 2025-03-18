@@ -25,10 +25,42 @@
 
                 <label for="check-out">Check-out</label>
                 <input type="date" id="check-out" required>
+
+
                 <button type="submit">Submit</button>
             </form>
         </div>
     </section>
+
+    <!-- Featured Rooms -->
+<section class="featured-rooms">
+    <div class="container">
+        <h2>Featured Rooms</h2>
+        <div class="room-list">
+            <?php
+            $query = "SELECT * FROM room_types ORDER BY price_per_night ASC LIMIT 3";
+            $result = $conn->query($query);
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+            ?>
+            <div class="room-card">
+                <img src="<?= $row['image_url']; ?>" alt="Room Image">
+                <div class="room-info">
+                    <h3><?= $row['room_type']; ?></h3>
+                    <p><?= $row['description']; ?></p>
+                    <p class="room-price">Price per night: ₹<?= $row['price_per_night']; ?></p>
+                    <a href="rooms.php" class="button">View More</a>
+                </div>
+            </div>
+            <?php
+                }
+            } else {
+                echo "<p>No rooms available at the moment.</p>";
+            }
+            ?>
+        </div>
+    </div>
+</section>
 
     <?php include 'includes/footer.php'; ?>
 
