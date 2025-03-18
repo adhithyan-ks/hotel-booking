@@ -4,28 +4,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/nav.css">
+    <title>Our Services</title>
+    <link rel="stylesheet" href="css/services.css"> <!-- Link to External CSS -->
+    <link rel="stylesheet" href="css/nav.css" />
     <link rel="stylesheet" href="css/footer.css">
-    <link rel="icon" type="image/x-icon" href="images/logo/hotellogo.png">
-    <title>Home</title>
 </head>
 <body>
 <?php include 'includes/header.php'; ?>
-<main class="container">
-    <?php
-    if (isset($_SESSION['user_id'])) {
-        echo "Welcome back, " . $_SESSION['user_id'] . "!<br>";
-        echo "<a href='includes/logout.php'>Logout</a>";
-    } else {
-        echo "Welcome, Guest!<br>";
-        echo "<a href='login.php'>Login</a>";
-    }
-    ?>
-</main>
+<section class="services-section">
+    <h2 class="section-title">OUR FACILITIES</h2>
+    <p class="section-description">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus incidunt odio quos dolore commodi repudiandae tenetur consequuntur et similique asperiores.
+    </p>
 
-<?php include 'includes/footer.php'; ?>
+    <div class="services-container">
+        <?php
+        // Array of services
+        $services = [
+            ["icon" => "wifi", "title" => "Wifi", "description" => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis quaerat non nam aperiam exercitationem neque a!"],
+            ["icon" => "wifi", "title" => "Wifi", "description" => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis quaerat non nam aperiam exercitationem neque a!"],
+            ["icon" => "wifi", "title" => "Wifi", "description" => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis quaerat non nam aperiam exercitationem neque a!"],
+            ["icon" => "wifi", "title" => "Wifi", "description" => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis quaerat non nam aperiam exercitationem neque a!"],
+            ["icon" => "wifi", "title" => "Wifi", "description" => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis quaerat non nam aperiam exercitationem neque a!"],
+            ["icon" => "wifi", "title" => "Wifi", "description" => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis quaerat non nam aperiam exercitationem neque a!"],
+        ];
 
-<script src="https://kit.fontawesome.com/2e5e758ab7.js" crossorigin="anonymous"></script>
-<script src="js/navbar.js"></script>
+        // Loop through services array to generate service cards
+        foreach ($services as $service) {
+            echo "<div class='service-box'>
+                    <div class='service-icon'>📶</div>
+                    <h3>{$service['title']}</h3>
+                    <p>{$service['description']}</p>
+                  </div>";
+        }
+        ?>
+    </div>
+</section>
+
 </body>
 </html>
