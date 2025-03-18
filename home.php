@@ -7,7 +7,8 @@
     <title>HB Website - Home</title>
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/nav.css">
-
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="icon" type="image/x-icon" href="images/logo/hotellogo.png">
 </head>
 <body>
 
@@ -47,6 +48,7 @@
 
     <?php include 'includes/footer.php'; ?>
 
-    <script src="js/script.js"></script>
+    <script src="https://kit.fontawesome.com/2e5e758ab7.js" crossorigin="anonymous"></script>
+    <script src="js/navbar.js"></script>
 </body>
 </html>
