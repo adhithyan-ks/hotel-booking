@@ -1,20 +1,5 @@
-<?php include 'includes/config.php';
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  // Simulate a login process (in a real application, this would involve checking credentials)
-  $email = $_POST['userEmail'];
-  $password = $_POST['userPassword'];
-  $query = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
-  $result = $conn->query($query);
-  if ($result->num_rows > 0) {
-    $user = $result->fetch_assoc(); // Fetch user data
-    $_SESSION['user_id'] = $user['user_id']; // Store user ID from database
-    header('Location: home.php');
-    exit();
-  } else {
-    echo "<div class='invalid'>Invalid email or password</div>";
-  }
-}
-?>
+<?php include 'includes/config.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -59,7 +44,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
           </div>
         </div>
-
+        <?php
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+          // Simulate a login process (in a real application, this would involve checking credentials)
+          $email = $_POST['userEmail'];
+          $password = $_POST['userPassword'];
+          $query = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
+          $result = $conn->query($query);
+          if ($result->num_rows > 0) {
+            $user = $result->fetch_assoc(); // Fetch user data
+            $_SESSION['user_id'] = $user['user_id']; // Store user ID from database
+            header('Location: home.php');
+            exit();
+          } else {
+            echo "<div class='invalid'>Invalid email or password</div>";
+          }
+        }
+        ?>
         <button id="loginButton" class="submit-button" type="submit">
           <span class="button-text">Login</span>
           <div class="button-glow"></div>
