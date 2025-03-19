@@ -41,6 +41,7 @@
     </div>
 </section>
 <?php include 'includes/footer.php'; ?>
+<script src="js/navbar.js"></script>
 <script src="https://kit.fontawesome.com/2e5e758ab7.js" crossorigin="anonymous"></script>
 </body>
 </html>
