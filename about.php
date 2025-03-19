@@ -32,17 +32,17 @@
         <h3>Meet Our Team</h3>
         <div class="team-members">
             <div class="team-member">
-                <img src="images/team/ceo.jpg" alt="CEO">
+                <img src="images/profile.png" alt="CEO">
                 <h4>John Doe</h4>
                 <p>Founder & CEO</p>
             </div>
             <div class="team-member">
-                <img src="images/team/manager.jpg" alt="Manager">
+                <img src="images/profile.png" alt="Manager">
                 <h4>Jane Smith</h4>
                 <p>Hotel Manager</p>
             </div>
             <div class="team-member">
-                <img src="images/team/chef.jpg" alt="Chef">
+                <img src="images/profile.png" alt="Chef">
                 <h4>Michael Brown</h4>
                 <p>Head Chef</p>
             </div>
