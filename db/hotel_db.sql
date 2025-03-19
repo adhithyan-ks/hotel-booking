@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 14, 2025 at 09:11 AM
+-- Generation Time: Mar 19, 2025 at 07:28 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -41,7 +41,8 @@ CREATE TABLE `admins` (
 
 INSERT INTO `admins` (`admin_id`, `admin_name`, `password`, `email`, `created_at`) VALUES
 (1, 'Adhithyan', 'asd', 'adhithyanktd@gmail.com', '2025-02-14 10:02:41'),
-(2, 'Adhars', '123', 'ADHARS@gmail.com', '2025-02-14 10:03:31');
+(2, 'Adhars', '123', 'ADHARS@gmail.com', '2025-02-14 10:03:31'),
+(3, 'Adhithyan M', 'password', 'adhim360@gmail.com', '2025-03-18 17:08:36');
 
 -- --------------------------------------------------------
 
@@ -64,13 +65,32 @@ CREATE TABLE `bookings` (
 --
 
 INSERT INTO `bookings` (`booking_id`, `user_id`, `room_id`, `check_in_date`, `check_out_date`, `total_price`, `booked_at`) VALUES
-(1, 33, 1, '2025-03-10', '2025-03-13', 4500, '2025-03-10 16:45:27'),
-(2, 33, 1, '2025-03-10', '2025-03-13', 4500, '2025-03-10 16:46:01'),
-(3, 33, 1, '2025-03-10', '2025-03-13', 4500, '2025-03-10 16:48:40'),
-(4, 33, 1, '2025-03-10', '2025-03-13', 4500, '2025-03-10 16:48:56'),
-(5, 33, 1, '2025-03-10', '2025-03-13', 4500, '2025-03-10 17:25:15'),
-(6, 33, 1, '2025-03-13', '2025-03-28', 22500, '2025-03-12 07:24:09'),
-(7, 33, 15, '2025-03-21', '2025-03-25', 4800, '2025-03-14 08:00:53');
+(13, 34, 15, '2025-03-21', '2025-03-22', 1200, '2025-03-18 18:01:10'),
+(14, 34, 8, '2025-03-18', '2025-03-20', 7000, '2025-03-18 18:05:38');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `messages`
+--
+
+CREATE TABLE `messages` (
+  `message_id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `message` text NOT NULL,
+  `submitted_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `messages`
+--
+
+INSERT INTO `messages` (`message_id`, `name`, `email`, `subject`, `message`, `submitted_at`) VALUES
+(1, 'adhithyan-ks', 'adhithyanktd@gmail.com', 'Location Details', 'Where is this hotel?', '2025-03-18 16:42:01'),
+(2, 'Abhijith', 'abi@gmail.com', 'Parking', 'Is parking available there?', '2025-03-18 16:48:17'),
+(3, 'Abhijith', 'abi@gmail.com', 'Parking', 'Is parking available there?', '2025-03-18 17:16:49');
 
 -- --------------------------------------------------------
 
@@ -155,17 +175,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `name`, `email`, `password`, `phone`, `created_at`) VALUES
-(13, 'Adhithyan', 'adhithyan@gmail.com', 'kuiuuhh788', '1231231312', '2025-01-26 13:43:54'),
-(15, 'vELLI', 'ADHARS@gmail.com', 'SDFW323', '9747601123', '2025-01-31 08:50:01'),
-(16, 'admin', 'admin@gmail.com', 'passwordfff', '97648585', '2025-01-31 10:16:48'),
-(17, 'Velayudhan', 'velayudhan@gmail.com', 'sadf', '1234456464', '2025-02-04 15:03:05'),
-(22, 'qwert', 'qwer@gm', '123asd!@#', '1234567890', '2025-02-05 10:00:06'),
-(28, 'fana', 'fana@ghm.com', 'dfsgdfger', '1234567768', '2025-02-05 10:29:17'),
-(29, 'Unni', 'unni@gmail.com', 'unni123', '9747601128', '2025-02-05 12:29:21'),
-(30, 'Adhithyan', 'adhi@gamil.com', 'asd123', '9747601128', '2025-02-05 13:29:07'),
-(31, 'Maven', 'florayt863@gmail.com', 'MavenGT200', '9656994624', '2025-02-07 07:25:58'),
-(32, 'Maven', 'asd@ad.com', 'asd', '9656994624', '2025-02-14 09:15:22'),
-(33, 'asd', 'asd@asd', 'asd', '9656994624', '2025-03-10 14:23:43');
+(34, 'Adhithyan K S', 'adhithyan@gmail.com', 'password', '9747601128', '2025-03-18 16:15:01');
 
 --
 -- Indexes for dumped tables
@@ -183,6 +193,12 @@ ALTER TABLE `admins`
 --
 ALTER TABLE `bookings`
   ADD PRIMARY KEY (`booking_id`);
+
+--
+-- Indexes for table `messages`
+--
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`message_id`);
 
 --
 -- Indexes for table `rooms`
@@ -212,13 +228,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `message_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `rooms`
@@ -230,7 +252,7 @@ ALTER TABLE `rooms`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- Constraints for dumped tables
