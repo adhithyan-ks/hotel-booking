@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/nav.css" />
     <link rel="stylesheet" href="css/rooms.css" />
     <link rel="stylesheet" href="css/filter.css" />
+    <link rel="stylesheet" href="css/footer.css" />
     <link rel="icon" type="image/x-icon" href="images/logo/hotellogo.png" />
     <title>Rooms</title>
 </head>

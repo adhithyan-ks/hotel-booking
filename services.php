@@ -5,16 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Services</title>
-    <link rel="stylesheet" href="css/services.css"> <!-- Link to External CSS -->
+    <link rel="stylesheet" href="css/services.css">
     <link rel="stylesheet" href="css/nav.css" />
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="icon" type="image/x-icon" href="images/logo/hotellogo.png">
 </head>
 <body>
 <?php include 'includes/header.php'; ?>
 <section class="services-section">
-    <h2 class="section-title">OUR FACILITIES</h2>
+    <h2 class="section-title">Our Services</h2>
     <p class="section-description">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus incidunt odio quos dolore commodi repudiandae tenetur consequuntur et similique asperiores.
+    We provide exceptional hospitality with top-notch comfort, convenience, and a memorable experience for our guest
     </p>
 
     <div class="services-container">
@@ -39,6 +40,7 @@
         ?>
     </div>
 </section>
-
+<?php include 'includes/footer.php'; ?>
+<script src="https://kit.fontawesome.com/2e5e758ab7.js" crossorigin="anonymous"></script>
 </body>
 </html>
