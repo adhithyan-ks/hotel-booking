@@ -5,25 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/table.css">
     <title>Hotel Admin Panel</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid black;
-        }
-        img {
-            width: 100px;
-        }
-    </style>
 </head>
 <body>
     <?php include 'inc/sidebar.php'; ?>
     <div class="content">
-        <h1>Welcome to the Admin Panel</h1>
-        <p>Select an option from the sidebar to manage the hotel.</p>
+        <h1>Room types</h1>
         <?php
         $query = "SELECT * FROM room_types ORDER BY price_per_night ASC";
         $result = $conn->query($query);

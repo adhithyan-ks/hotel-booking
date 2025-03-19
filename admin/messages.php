@@ -5,19 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/table.css">
     <title>Hotel Admin Panel</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid black;
-        }
-        img {
-            width: 100px;
-        }
-    </style>
 </head>
 <body>
     <?php include 'inc/sidebar.php'; ?>
