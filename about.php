@@ -22,7 +22,7 @@
             <img src="images/home/home3.png" alt="Hotel Image">
         </div>
         <div class="about-text">
-            <p>Welcome to [Your Hotel Name], a luxurious retreat where comfort meets elegance. Established in [Year], we have been dedicated to offering exceptional hospitality and unforgettable experiences to our guests.</p>
+            <p>Welcome to H-Hotel, a luxurious retreat where comfort meets elegance. Established in 2015, we have been dedicated to offering exceptional hospitality and unforgettable experiences to our guests.</p>
             <p>Our hotel boasts modern rooms, fine dining, world-class amenities, and top-notch services, ensuring a perfect stay for every traveler.</p>
             <p>Whether you're here for business or leisure, our team is committed to making your stay memorable.</p>
         </div>

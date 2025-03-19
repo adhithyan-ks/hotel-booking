@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HB Website - Home</title>
+    <title>H-Hotel - Home</title>
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/footer.css">
@@ -16,7 +16,7 @@
 
     <section class="hero">
         <div class="overlay">
-            <h1>Welcome to HB Website</h1>
+            <h1>Welcome to H-Hotel</h1>
             <p>Experience luxury and comfort at our premium hotel.</p>
 
             <form class="booking-form" action="rooms.php" method="GET">
