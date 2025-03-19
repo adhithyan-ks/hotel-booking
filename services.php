@@ -21,18 +21,17 @@
         <?php
         // Array of services
         $services = [
-            ["icon" => "wifi", "title" => "Wifi", "description" => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis quaerat non nam aperiam exercitationem neque a!"],
-            ["icon" => "wifi", "title" => "Wifi", "description" => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis quaerat non nam aperiam exercitationem neque a!"],
-            ["icon" => "wifi", "title" => "Wifi", "description" => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis quaerat non nam aperiam exercitationem neque a!"],
-            ["icon" => "wifi", "title" => "Wifi", "description" => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis quaerat non nam aperiam exercitationem neque a!"],
-            ["icon" => "wifi", "title" => "Wifi", "description" => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis quaerat non nam aperiam exercitationem neque a!"],
-            ["icon" => "wifi", "title" => "Wifi", "description" => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis quaerat non nam aperiam exercitationem neque a!"],
+            ["title" => "Fine Dining", "description" => "Enjoy a variety of gourmet dishes prepared by world-class chefs in a luxurious ambiance."],
+            ["title" => "Spa & Wellness", "description" => "Rejuvenate with our exclusive spa treatments, massages, and wellness programs."],
+            ["title" => "Swimming Pool", "description" => "Dive into our crystal-clear pool and enjoy a refreshing swim with poolside service."],
+            ["title" => "Fitness Center", "description" => "Stay fit with our state-of-the-art gym featuring the latest workout equipment."],
+            ["title" => "24/7 Room Service", "description" => "Enjoy round-the-clock room service, ensuring your stay is seamless and convenient."],
+            ["title" => "Free Wifi", "description" => "Stay connected with high-speed internet access throughout our hotel."],
         ];
 
         // Loop through services array to generate service cards
         foreach ($services as $service) {
             echo "<div class='service-box'>
-                    <div class='service-icon'>📶</div>
                     <h3>{$service['title']}</h3>
                     <p>{$service['description']}</p>
                   </div>";
