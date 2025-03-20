@@ -1,17 +1,19 @@
-<?php include 'includes/config.php' ?>
+<?php include 'includes/config.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/logo/hotellogo.png" type="image/x-icon">
     <link rel="stylesheet" href="css/booking.css">
     <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/footer.css">
     <title>Book Room</title>
 </head>
 <body>
 <?php include 'includes/header.php'; ?>
-<?php 
 
+<?php 
 // Ensure user is logged in
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
@@ -25,8 +27,8 @@ if (!isset($_GET['room_type'])) {
 }
 
 $roomType = $_GET['room_type'];
-$checkInDate = isset($_GET['check_in_date']) ? $_GET['check_in_date'] : '';
-$checkOutDate = isset($_GET['check_out_date']) ? $_GET['check_out_date'] : '';
+$checkInDate = $_GET['check_in_date'] ?? '';
+$checkOutDate = $_GET['check_out_date'] ?? '';
 
 $availabilityMessage = "";
 
@@ -55,10 +57,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['check_availability']))
     $stmt->bind_param("s", $roomType);
     $stmt->execute();
     $totalRoomsResult = $stmt->get_result();
-    $totalRoomsData = $totalRoomsResult->fetch_assoc();
-    $totalRooms = $totalRoomsData['total_rooms'];
+    $totalRooms = $totalRoomsResult->fetch_assoc()['total_rooms'] ?? 0;
 
-    // Check how many rooms of this type are already booked in the selected dates
+    // Check how many rooms are already booked in the selected dates
     $query = "SELECT COUNT(*) AS booked_rooms FROM bookings b 
               JOIN rooms r ON b.room_id = r.room_id
               WHERE r.room_type = ? 
@@ -67,9 +68,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['check_availability']))
     $stmt = $conn->prepare($query);
     $stmt->bind_param("sss", $roomType, $checkOutDate, $checkInDate);
     $stmt->execute();
-    $result = $stmt->get_result();
-    $bookedRoomsData = $result->fetch_assoc();
-    $bookedRooms = $bookedRoomsData ? $bookedRoomsData['booked_rooms'] : 0;
+    $bookedRoomsResult = $stmt->get_result();
+    $bookedRooms = $bookedRoomsResult->fetch_assoc()['booked_rooms'] ?? 0;
 
     // Calculate available rooms
     $availableRooms = $totalRooms - $bookedRooms;
@@ -113,14 +113,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['confirm_booking'])) {
             $nights = $date1->diff($date2)->days;
             $totalPrice = $nights * $roomTypeData['price_per_night'];
 
-            // Insert booking into database
-            $stmt = $conn->prepare("INSERT INTO bookings (user_id, room_id, check_in_date, check_out_date, total_price) VALUES (?, ?, ?, ?, ?)");
+            // Insert booking into database with payment status = pending
+            $stmt = $conn->prepare("INSERT INTO bookings (user_id, room_id, check_in_date, check_out_date, total_price, payment_status) 
+                                    VALUES (?, ?, ?, ?, ?, 'pending')");
             $stmt->bind_param("iissd", $user_id, $room_id, $checkInDate, $checkOutDate, $totalPrice);
             
             if ($stmt->execute()) {
-              // $availabilityMessage="<p class='success-message'>Booking confirmed! Total: ₹" . $totalPrice . "</p>";
-              //  $availabilityMessage.="<a href='account.php'>View My Bookings</a>";
-                header("Location: confirmation.php?booking_id=" . $conn->insert_id);
+                // Redirect to payment page
+                header("Location: payment.php?booking_id=" . $conn->insert_id);
                 exit();
             } else {
                 echo "<p class='error-message'>Booking failed: " . $stmt->error . "</p>";
@@ -154,7 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['confirm_booking'])) {
 
                 <?= $availabilityMessage; ?>
 
-                <button type="submit" name="confirm_booking" class="button">Confirm Booking</button>
+                <button type="submit" name="confirm_booking" class="button">Proceed to Payment</button>
             </form>
         </div>
     </div>
