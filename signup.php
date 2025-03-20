@@ -59,8 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="input-group">
                     <div class="input-wrapper">
                         <i class="fa-solid fa-phone input-icon"></i>
-                        <input required placeholder="Phone Number" class="form-input" name="userPhone" type="tel">
-                    </div>
+                        <input required placeholder="Phone Number" class="form-input" name="userPhone" type="tel" pattern="[0-9]{10,}">
+                        </div>
                 </div>
 
                 <div class="input-group">
@@ -93,8 +93,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     Already have an account? <span>Login</span>
                 </a>
             </div>
+            <div id="error-message" class="invalid" style="display:none; color: red;"></div>
+
         </form>
     </main>
 </body>
 <script src="https://kit.fontawesome.com/2e5e758ab7.js" crossorigin="anonymous"></script>
+<script src="js/signup.js"></script>
+
 </html>
