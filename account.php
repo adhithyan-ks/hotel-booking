@@ -44,12 +44,14 @@
             echo "<h2>My Bookings</h2>";
 
             // Fetch user bookings
+            // Fetch user bookings (only successful)
             $query = "SELECT b.*, r.room_type, rt.price_per_night, rt.image_url 
-                      FROM bookings b 
-                      JOIN rooms r ON b.room_id = r.room_id
-                      JOIN room_types rt ON r.room_type = rt.room_type
-                      WHERE b.user_id = ? 
-                      ORDER BY b.booked_at DESC";
+            FROM bookings b 
+            JOIN rooms r ON b.room_id = r.room_id
+            JOIN room_types rt ON r.room_type = rt.room_type
+            WHERE b.user_id = ? AND b.payment_status = 'completed' 
+            ORDER BY b.booked_at DESC";
+
 
             $stmt = $conn->prepare($query);
             $stmt->bind_param("i", $user_id);
