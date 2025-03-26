@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2025 at 07:28 AM
+-- Generation Time: Mar 20, 2025 at 07:14 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -40,9 +40,9 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`admin_id`, `admin_name`, `password`, `email`, `created_at`) VALUES
-(1, 'Adhithyan', 'asd', 'adhithyanktd@gmail.com', '2025-02-14 10:02:41'),
 (2, 'Adhars', '123', 'ADHARS@gmail.com', '2025-02-14 10:03:31'),
-(3, 'Adhithyan M', 'password', 'adhim360@gmail.com', '2025-03-18 17:08:36');
+(4, 'Adhithyan M', 'password', 'adhi360m@gmail.com', '2025-03-19 06:37:20'),
+(5, 'Adhithyan K S', 'password', 'adhithyanktd@gmail.com', '2025-03-19 06:38:15');
 
 -- --------------------------------------------------------
 
@@ -57,6 +57,7 @@ CREATE TABLE `bookings` (
   `check_in_date` date NOT NULL,
   `check_out_date` date NOT NULL,
   `total_price` decimal(10,0) NOT NULL,
+  `payment_status` enum('pending','completed') DEFAULT 'pending',
   `booked_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -64,9 +65,9 @@ CREATE TABLE `bookings` (
 -- Dumping data for table `bookings`
 --
 
-INSERT INTO `bookings` (`booking_id`, `user_id`, `room_id`, `check_in_date`, `check_out_date`, `total_price`, `booked_at`) VALUES
-(13, 34, 15, '2025-03-21', '2025-03-22', 1200, '2025-03-18 18:01:10'),
-(14, 34, 8, '2025-03-18', '2025-03-20', 7000, '2025-03-18 18:05:38');
+INSERT INTO `bookings` (`booking_id`, `user_id`, `room_id`, `check_in_date`, `check_out_date`, `total_price`, `payment_status`, `booked_at`) VALUES
+(16, 34, 1, '2025-03-20', '2025-03-22', 3000, 'pending', '2025-03-20 18:05:13'),
+(17, 34, 2, '2025-03-20', '2025-03-22', 3000, 'pending', '2025-03-20 18:09:26');
 
 -- --------------------------------------------------------
 
@@ -90,7 +91,25 @@ CREATE TABLE `messages` (
 INSERT INTO `messages` (`message_id`, `name`, `email`, `subject`, `message`, `submitted_at`) VALUES
 (1, 'adhithyan-ks', 'adhithyanktd@gmail.com', 'Location Details', 'Where is this hotel?', '2025-03-18 16:42:01'),
 (2, 'Abhijith', 'abi@gmail.com', 'Parking', 'Is parking available there?', '2025-03-18 16:48:17'),
-(3, 'Abhijith', 'abi@gmail.com', 'Parking', 'Is parking available there?', '2025-03-18 17:16:49');
+(3, 'Abhijith', 'abi@gmail.com', 'Parking', 'Is parking available there?', '2025-03-18 17:16:49'),
+(4, 'adhithyan-ks', 'adhithyanktd@gmail.com', 'Location Details', '??', '2025-03-19 07:58:38');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payments`
+--
+
+CREATE TABLE `payments` (
+  `payment_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `booking_id` int(11) NOT NULL,
+  `amount` decimal(10,2) NOT NULL,
+  `payment_status` enum('pending','completed') DEFAULT 'pending',
+  `payment_method` enum('credit_card','paypal','upi','cash') NOT NULL,
+  `transaction_id` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -201,6 +220,15 @@ ALTER TABLE `messages`
   ADD PRIMARY KEY (`message_id`);
 
 --
+-- Indexes for table `payments`
+--
+ALTER TABLE `payments`
+  ADD PRIMARY KEY (`payment_id`),
+  ADD UNIQUE KEY `transaction_id` (`transaction_id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `booking_id` (`booking_id`);
+
+--
 -- Indexes for table `rooms`
 --
 ALTER TABLE `rooms`
@@ -228,19 +256,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `message_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `message_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `payments`
+--
+ALTER TABLE `payments`
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `rooms`
@@ -257,6 +291,13 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `payments`
+--
+ALTER TABLE `payments`
+  ADD CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
+  ADD CONSTRAINT `payments_ibfk_2` FOREIGN KEY (`booking_id`) REFERENCES `bookings` (`booking_id`);
 
 --
 -- Constraints for table `rooms`
