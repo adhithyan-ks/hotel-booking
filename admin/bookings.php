@@ -59,7 +59,7 @@
             while ($row = $result->fetch_assoc()) {
                 echo "<tr>
                         <td>{$row['booking_id']}</td>
-                        <td>{$row['user_id']}</td>
+                        <td><a href='users.php?search={$row['user_id']}' class='user-link'>{$row['user_id']}</a></td>
                         <td>{$row['room_type']}</td>
                         <td>{$row['check_in_date']}</td>
                         <td>{$row['check_out_date']}</td>
