@@ -1,0 +1,60 @@
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Labels */
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Inputs & Select */
+input, select, button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+input:focus, select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Hidden Fields */
+#newUserField {
+    display: none;
+    background: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Buttons */
+button {
+    background:rgb(71, 71, 71);
+    color: white;
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+    max-width: 200px;
+}
+
+button:hover {
+    background:rgb(151, 151, 151);
+}
+
+/* Alert Message */
+.alert {
+    padding: 10px;
+    background: #ffcccc;
+    color: red;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: bold;
+}

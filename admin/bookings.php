@@ -65,7 +65,16 @@
                         <td>{$row['check_out_date']}</td>
                         <td>₹{$row['total_price']}</td>
                         <td class='status {$row['status']}'>" . ucfirst($row['status']) . "</td>
-                        <td>" . ucfirst($row['payment_status']) . " ({$row['payment_method']})</td>
+                        <td>";?>
+                            <?php 
+                            if (!empty($row['payment_status'])) {
+                                echo ucfirst($row['payment_status']) . " (" . (!empty($row['payment_method']) ? $row['payment_method'] : "N/A") . ")";
+                            } elseif ($row['booking_source'] == 'offline') {
+                                echo "Cash (Paid at Counter)";
+                            } else {
+                                echo "N/A";
+                            }
+                            echo "</td>
                         <td>" . ($row['transaction_id'] ? $row['transaction_id'] : 'N/A') . "</td>
                         <td>" . ucfirst($row['booking_source']) . "</td>
                         <td>" . ($row['admin_id'] ? $row['admin_id'] : 'N/A') . "</td>
@@ -74,7 +83,7 @@
                         
                 // Only allow cancellation if booking is confirmed and check-in date is in the future
                 if ($row['status'] == 'confirmed' && strtotime($row['check_in_date']) > time()) {
-                    echo "<form action='../cancel_booking.php' method='POST' onsubmit='return confirm(\"Cancel this booking?\")'>
+                    echo "<form action='cancel_booking.php' method='POST' onsubmit='return confirm(\"Cancel this booking?\")'>
                             <input type='hidden' name='booking_id' value='{$row['booking_id']}'>
                             <button type='submit' class='cancel-btn'>Cancel</button>
                           </form>";
