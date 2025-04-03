@@ -29,13 +29,13 @@
         // Fetch filtered bookings
         $status_filter = isset($_GET['status']) && $_GET['status'] != '' ? "WHERE b.status = '{$_GET['status']}'" : '';
         $query = "SELECT b.*, r.room_type, 
-                         p.payment_status, p.payment_method, p.transaction_id,
-                         b.booking_source, b.admin_id
-                  FROM bookings b 
-                  JOIN rooms r ON b.room_id = r.room_id
-                  LEFT JOIN payments p ON b.booking_id = p.booking_id
-                  $status_filter
-                  ORDER BY b.booked_at DESC";
+                 p.payment_status, p.payment_method, p.transaction_id,
+                 b.booking_source, b.admin_id
+          FROM bookings b 
+          JOIN rooms r ON b.room_id = r.room_id
+          LEFT JOIN payments p ON b.booking_id = p.booking_id
+          $status_filter
+          ORDER BY b.booked_at DESC";
         $result = $conn->query($query);
 
         if ($result->num_rows > 0) {
@@ -46,6 +46,7 @@
                         <th>Room Type</th>
                         <th>Check-in</th>
                         <th>Check-out</th>
+                        <th>Services</th>
                         <th>Total Price</th>
                         <th>Status</th>
                         <th>Payment</th>
@@ -57,36 +58,52 @@
                     </tr>";
 
             while ($row = $result->fetch_assoc()) {
+                // Handle services display
+                $services = [];
+
+                if ($row['breakfast'] == 'Yes') {
+                    $services[] = "Breakfast (" . ($row['breakfast_time'] ?? 'N/A') . ")";
+                }
+                if ($row['dinner'] == 'Yes') {
+                    $services[] = "Dinner (" . ($row['dinner_time'] ?? 'N/A') . ")";
+                }
+                if (!empty($row['additional_services'])) {
+                    $services[] = "Extra: " . $row['additional_services'];
+                }
+
+                $services_display = !empty($services) ? implode(', ', $services) : 'No services';
+
                 echo "<tr>
                         <td>{$row['booking_id']}</td>
                         <td><a href='users.php?search={$row['user_id']}' class='user-link'>{$row['user_id']}</a></td>
                         <td>{$row['room_type']}</td>
                         <td>{$row['check_in_date']}</td>
                         <td>{$row['check_out_date']}</td>
+                        <td>{$services_display}</td>
                         <td>₹{$row['total_price']}</td>
                         <td class='status {$row['status']}'>" . ucfirst($row['status']) . "</td>
-                        <td>";?>
-                            <?php 
-                            if (!empty($row['payment_status'])) {
-                                echo ucfirst($row['payment_status']) . " (" . (!empty($row['payment_method']) ? $row['payment_method'] : "N/A") . ")";
-                            } elseif ($row['booking_source'] == 'offline') {
-                                echo "Cash (Paid at Counter)";
-                            } else {
-                                echo "N/A";
-                            }
-                            echo "</td>
+                        <td>";
+                        
+                if (!empty($row['payment_status'])) {
+                    echo ucfirst($row['payment_status']) . " (" . (!empty($row['payment_method']) ? $row['payment_method'] : "N/A") . ")";
+                } elseif ($row['booking_source'] == 'offline') {
+                    echo "Cash (Paid at Counter)";
+                } else {
+                    echo "N/A";
+                }
+
+                echo "</td>
                         <td>" . ($row['transaction_id'] ? $row['transaction_id'] : 'N/A') . "</td>
                         <td>" . ucfirst($row['booking_source']) . "</td>
                         <td>" . ($row['admin_id'] ? $row['admin_id'] : 'N/A') . "</td>
                         <td>{$row['booked_at']}</td>
                         <td>";
                         
-                // Only allow cancellation if booking is confirmed and check-in date is in the future
                 if ($row['status'] == 'confirmed' && strtotime($row['check_in_date']) > time()) {
                     echo "<form action='cancel_booking.php' method='POST' onsubmit='return confirm(\"Cancel this booking?\")'>
                             <input type='hidden' name='booking_id' value='{$row['booking_id']}'>
                             <button type='submit' class='cancel-btn'>Cancel</button>
-                          </form>";
+                        </form>";
                 } else {
                     echo "-";
                 }
