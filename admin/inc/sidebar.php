@@ -18,7 +18,7 @@ if (!isset($_SESSION['admin_email'])) {
             <li><a href="admins.php">Admins</a></li>
             
             <!-- New Features -->
-            <li><a href="admin_offline_booking.php">Offline Bookings</a></li>
+            <li><a href="add_booking.php">Offline Bookings</a></li>
             <li><a href="admin_payments.php">Manage Cash Payments</a></li>
 
             <li><a href="inc/logout.php">Logout</a></li>
