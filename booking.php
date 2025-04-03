@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['check_availability']))
           JOIN rooms r ON b.room_id = r.room_id
           WHERE r.room_type = ? 
           AND (b.check_in_date < ? AND b.check_out_date > ?)
-          AND b.payment_status = 'completed'";
+          AND b.status = 'completed'";
     
     $stmt = $conn->prepare($query);
     $stmt->bind_param("sss", $roomType, $checkOutDate, $checkInDate);
@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['confirm_booking'])) {
             $totalPrice = $nights * $roomTypeData['price_per_night'];
 
             // Insert booking into database with payment status = pending
-            $stmt = $conn->prepare("INSERT INTO bookings (user_id, room_id, check_in_date, check_out_date, total_price, payment_status) 
+            $stmt = $conn->prepare("INSERT INTO bookings (user_id, room_id, check_in_date, check_out_date, total_price, status) 
                                     VALUES (?, ?, ?, ?, ?, 'pending')");
             $stmt->bind_param("iissd", $user_id, $room_id, $checkInDate, $checkOutDate, $totalPrice);
             

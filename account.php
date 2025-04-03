@@ -42,16 +42,13 @@
             }
 
             echo "<h2>My Bookings</h2>";
-
-            // Fetch user bookings
             // Fetch user bookings (only successful)
             $query = "SELECT b.*, r.room_type, rt.price_per_night, rt.image_url 
             FROM bookings b 
             JOIN rooms r ON b.room_id = r.room_id
             JOIN room_types rt ON r.room_type = rt.room_type
-            WHERE b.user_id = ? AND b.payment_status = 'completed' 
+            WHERE b.user_id = ? AND (b.status = 'confirmed' OR b.status = 'canceled')
             ORDER BY b.booked_at DESC";
-
 
             $stmt = $conn->prepare($query);
             $stmt->bind_param("i", $user_id);
@@ -59,21 +56,46 @@
             $result = $stmt->get_result();
 
             if ($result->num_rows > 0) {
-                echo "<div class='bookings-list'>";
-                while ($booking = $result->fetch_assoc()) {
-                    echo "<div class='booking-card'>";
-                    echo "<img src='{$booking['image_url']}' alt='Room Image'>";
-                    echo "<div class='booking-details'>";
-                    echo "<p><strong>Room Type:</strong> {$booking['room_type']}</p>";
-                    echo "<p><strong>Check-in:</strong> {$booking['check_in_date']}</p>";
-                    echo "<p><strong>Check-out:</strong> {$booking['check_out_date']}</p>";
-                    echo "<p><strong>Total Price:</strong> ₹{$booking['total_price']}</p>";
-                    echo "</div>";
-                    echo "</div>";
+                echo "<table border='1'>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Room Type</th>
+                            <th>Check-in</th>
+                            <th>Check-out</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>";
+            
+                while ($row = $result->fetch_assoc()) {
+                    $booking_id = $row['booking_id'];
+                    $room_type = $row['room_type'];
+                    $check_in = $row['check_in_date'];
+                    $check_out = $row['check_out_date'];
+                    $status = $row['status'];
+            
+                    echo "<tr>
+                            <td>$booking_id</td>
+                            <td>$room_type</td>
+                            <td>$check_in</td>
+                            <td>$check_out</td>
+                            <td>$status</td>
+                            <td>";
+            
+                    // Show cancel button only if booking is in the future and confirmed
+                    if ($status == 'confirmed' && strtotime($check_in) > time()) {
+                        echo "<form action='cancel_booking.php' method='POST' onsubmit='return confirm(\"Are you sure you want to cancel this booking?\")'>
+                                <input type='hidden' name='booking_id' value='$booking_id'>
+                                <button type='submit'>Cancel Booking</button>
+                              </form>";
+                    } else {
+                        echo "-";
+                    }
+            
+                    echo "</td></tr>";
                 }
-                echo "</div>";
+                echo "</table>";
             } else {
-                echo "<p class='no-bookings'>You have no bookings yet.</p>";
+                echo "<p>You have no bookings.</p>";
             }
         } else {
             echo "<p class='guest-message'>Welcome, Guest!</p>";
@@ -89,3 +111,26 @@
 <script src="js/navbar.js"></script>
 </body>
 </html>
+<?php
+session_start();
+require_once "config.php"; // Database connection
+
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$user_id = $_SESSION['user_id'];
+
+// Fetch user bookings
+$sql = "SELECT * FROM bookings WHERE user_id = ? ORDER BY check_in_date DESC";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+echo "<h2>Your Bookings</h2>";
+
+
+?>

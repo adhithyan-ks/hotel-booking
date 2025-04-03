@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['booking_id'], $_POST[
 
     if ($stmt->execute()) {
         // Update booking table to mark as paid
-        $updateBooking = $conn->prepare("UPDATE bookings SET payment_status = 'completed' WHERE booking_id = ?");
+        $updateBooking = $conn->prepare("UPDATE bookings SET status = 'confirmed' WHERE booking_id = ?");
         $updateBooking->bind_param("i", $booking_id);
         $updateBooking->execute();
 
