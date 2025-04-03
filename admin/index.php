@@ -16,25 +16,29 @@
 
         <div class="dashboard-stats">
             <?php
-                // Total Users
+                // Fetch Total Users
                 $queryUsers = "SELECT COUNT(*) AS total_users FROM users";
-                $resultUsers = $conn->query($queryUsers);
-                $totalUsers = $resultUsers->fetch_assoc()['total_users'];
+                $totalUsers = $conn->query($queryUsers)->fetch_assoc()['total_users'];
 
-                // Total Bookings
+                // Fetch Total Bookings
                 $queryBookings = "SELECT COUNT(*) AS total_bookings FROM bookings";
-                $resultBookings = $conn->query($queryBookings);
-                $totalBookings = $resultBookings->fetch_assoc()['total_bookings'];
+                $totalBookings = $conn->query($queryBookings)->fetch_assoc()['total_bookings'];
 
-                // Total Rooms Available
+                // Fetch Total Available Rooms
                 $queryRooms = "SELECT COUNT(*) AS total_rooms FROM rooms";
-                $resultRooms = $conn->query($queryRooms);
-                $totalRooms = $resultRooms->fetch_assoc()['total_rooms'];
+                $totalRooms = $conn->query($queryRooms)->fetch_assoc()['total_rooms'];
 
-                // Total Revenue Earned
-                $queryRevenue = "SELECT SUM(total_price) AS total_revenue FROM bookings";
-                $resultRevenue = $conn->query($queryRevenue);
-                $totalRevenue = $resultRevenue->fetch_assoc()['total_revenue'] ?? 0;
+                // Fetch Total Revenue Earned
+                $queryRevenue = "SELECT SUM(total_price) AS total_revenue FROM bookings WHERE status = 'confirmed'";
+                $totalRevenue = $conn->query($queryRevenue)->fetch_assoc()['total_revenue'] ?? 0;
+
+                // Fetch Pending Bookings
+                $queryPending = "SELECT COUNT(*) AS pending_bookings FROM bookings WHERE status = 'pending'";
+                $pendingBookings = $conn->query($queryPending)->fetch_assoc()['pending_bookings'];
+
+                // Fetch Confirmed Bookings
+                $queryConfirmed = "SELECT COUNT(*) AS confirmed_bookings FROM bookings WHERE status = 'confirmed'";
+                $confirmedBookings = $conn->query($queryConfirmed)->fetch_assoc()['confirmed_bookings'];
             ?>
 
             <div class="stat-box">
@@ -45,6 +49,16 @@
             <div class="stat-box">
                 <h2>Total Bookings</h2>
                 <p><?= $totalBookings; ?></p>
+            </div>
+
+            <div class="stat-box">
+                <h2>Pending Bookings</h2>
+                <p><?= $pendingBookings; ?></p>
+            </div>
+
+            <div class="stat-box">
+                <h2>Confirmed Bookings</h2>
+                <p><?= $confirmedBookings; ?></p>
             </div>
 
             <div class="stat-box">

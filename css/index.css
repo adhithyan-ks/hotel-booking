@@ -1,4 +1,4 @@
-/* General Styling */
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -6,52 +6,64 @@ body {
     padding: 0;
 }
 
-/* Admin Dashboard Container */
-.admin-container {
-    margin-left: 250px; /* Adjust if sidebar width changes */
-    padding: 20px;
-}
 
-/* Dashboard Title */
-.admin-container h1 {
+/* Page Title */
+h1 {
     text-align: center;
-    font-size: 26px;
-    color: #2c3e50;
+    color: #333;
+    margin-bottom: 20px;
 }
-
-/* Dashboard Stats */
+/* Dashboard Stats Grid - Ensure It Works */
 .dashboard-stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive */
     gap: 20px;
-    max-width: 1000px;
-    margin: 20px auto;
+    justify-content: center;
+    max-width: 1000px; /* Prevent full-width stretching */
+    margin: 0 auto; /* Center the grid */
+}
+
+/* Adjust Admin Container */
+.admin-container {
+    margin-left: 250px; /* Ensure space for sidebar */
+    padding: 20px;
+    max-width: 1200px; /* Prevent excessive width */
 }
 
 /* Stat Box */
 .stat-box {
-    background: white;
+    background-color: #fff;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.2s ease-in-out;
 }
 
 .stat-box:hover {
     transform: translateY(-5px);
 }
 
-/* Stat Box Titles */
 .stat-box h2 {
     font-size: 18px;
-    color: #34495e;
+    color: #555;
     margin-bottom: 10px;
 }
 
-/* Stat Numbers */
 .stat-box p {
     font-size: 24px;
     font-weight: bold;
-    color: #007bff;
+    color: #222;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .admin-container {
+        margin-left: 0;
+        padding: 15px;
+    }
+
+    .dashboard-stats {
+        grid-template-columns: 1fr;
+    }
 }
