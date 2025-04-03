@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 20, 2025 at 07:14 PM
+-- Generation Time: Apr 03, 2025 at 07:43 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -52,22 +52,28 @@ INSERT INTO `admins` (`admin_id`, `admin_name`, `password`, `email`, `created_at
 
 CREATE TABLE `bookings` (
   `booking_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
   `room_id` int(11) NOT NULL,
   `check_in_date` date NOT NULL,
   `check_out_date` date NOT NULL,
   `total_price` decimal(10,0) NOT NULL,
-  `payment_status` enum('pending','completed') DEFAULT 'pending',
-  `booked_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `status` enum('pending','confirmed','canceled') DEFAULT 'pending',
+  `booked_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `booking_source` enum('online','offline') DEFAULT 'online',
+  `admin_id` int(11) DEFAULT NULL,
+  `breakfast` enum('Yes','No') DEFAULT 'No',
+  `breakfast_time` time DEFAULT NULL,
+  `dinner` enum('Yes','No') DEFAULT 'No',
+  `dinner_time` time DEFAULT NULL,
+  `additional_services` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `bookings`
 --
 
-INSERT INTO `bookings` (`booking_id`, `user_id`, `room_id`, `check_in_date`, `check_out_date`, `total_price`, `payment_status`, `booked_at`) VALUES
-(16, 34, 1, '2025-03-20', '2025-03-22', 3000, 'pending', '2025-03-20 18:05:13'),
-(17, 34, 2, '2025-03-20', '2025-03-22', 3000, 'pending', '2025-03-20 18:09:26');
+INSERT INTO `bookings` (`booking_id`, `user_id`, `room_id`, `check_in_date`, `check_out_date`, `total_price`, `status`, `booked_at`, `booking_source`, `admin_id`, `breakfast`, `breakfast_time`, `dinner`, `dinner_time`, `additional_services`) VALUES
+(58, 34, 13, '2025-04-05', '2025-04-06', 5000, 'confirmed', '2025-04-03 17:40:39', 'online', NULL, 'No', '00:00:00', 'No', '00:00:00', 'No food needed');
 
 -- --------------------------------------------------------
 
@@ -110,6 +116,13 @@ CREATE TABLE `payments` (
   `transaction_id` varchar(50) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `payments`
+--
+
+INSERT INTO `payments` (`payment_id`, `user_id`, `booking_id`, `amount`, `payment_status`, `payment_method`, `transaction_id`, `created_at`) VALUES
+(26, 34, 58, 5000.00, 'completed', 'upi', 'txn_67eec817d5eca', '2025-04-03 17:40:39');
 
 -- --------------------------------------------------------
 
@@ -183,7 +196,7 @@ INSERT INTO `room_types` (`room_type`, `description`, `price_per_night`, `image_
 CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `email` varchar(50) NOT NULL,
+  `email` varchar(50) DEFAULT NULL,
   `password` varchar(25) NOT NULL,
   `phone` varchar(10) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -194,7 +207,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `name`, `email`, `password`, `phone`, `created_at`) VALUES
-(34, 'Adhithyan K S', 'adhithyan@gmail.com', 'password', '9747601128', '2025-03-18 16:15:01');
+(34, 'Adhithyan K S', 'adhithyan@gmail.com', 'password', '9747601129', '2025-04-03 17:37:47'),
+(35, 'Unni', 'unni@gmail.com', 'password', '9966332211', '2025-04-03 07:08:10'),
+(45, 'Sumesh K N', NULL, '', '4444444444', '2025-04-03 14:07:49'),
+(46, 'Sabu', NULL, '', '7777777777', '2025-04-03 14:17:08'),
+(47, 'Abhijith Kannan', NULL, '', '1234567890', '2025-04-03 17:18:28');
 
 --
 -- Indexes for dumped tables
@@ -262,7 +279,7 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `messages`
@@ -274,7 +291,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `rooms`
@@ -286,7 +303,7 @@ ALTER TABLE `rooms`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- Constraints for dumped tables
