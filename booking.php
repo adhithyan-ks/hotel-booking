@@ -61,9 +61,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['check_availability']))
 
     // Check how many rooms are already booked in the selected dates
     $query = "SELECT COUNT(*) AS booked_rooms FROM bookings b 
-              JOIN rooms r ON b.room_id = r.room_id
-              WHERE r.room_type = ? 
-              AND (b.check_in_date < ? AND b.check_out_date > ?)";
+          JOIN rooms r ON b.room_id = r.room_id
+          WHERE r.room_type = ? 
+          AND (b.check_in_date < ? AND b.check_out_date > ?)
+          AND b.payment_status = 'completed'";
     
     $stmt = $conn->prepare($query);
     $stmt->bind_param("sss", $roomType, $checkOutDate, $checkInDate);
