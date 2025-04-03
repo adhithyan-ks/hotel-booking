@@ -110,7 +110,6 @@ if (!$booking) {
                 <option value="credit_card">Credit Card</option>
                 <option value="paypal">PayPal</option>
                 <option value="upi">UPI</option>
-                <option value="cash">Cash on Arrival</option>
             </select>
 
             <button type="submit" class="pay-button">Proceed to Payment</button>
