@@ -10,6 +10,8 @@ if (!isset($_SESSION['admin_email'])) {
         <h2>Admin Panel</h2>
         <ul>
             <li><a href="index.php">Dashboard</a></li>
+            <li><a href="check_room.php">Check Room Availability</a></li>
+            <li><a href="add_booking.php">Add Bookings</a></li>
             <li><a href="bookings.php">Bookings</a></li>
             <li><a href="rooms.php">Rooms</a></li>
             <li><a href="payments.php">Payments</a></li>
@@ -17,9 +19,6 @@ if (!isset($_SESSION['admin_email'])) {
             <li><a href="messages.php">Messages</a></li>
             <li><a href="admins.php">Admins</a></li>
             
-            <!-- New Features -->
-            <li><a href="add_booking.php">Add Bookings</a></li>
-
             <li><a href="inc/logout.php">Logout</a></li>
         </ul>
     </div>
