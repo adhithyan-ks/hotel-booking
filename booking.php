@@ -14,13 +14,11 @@
 <?php include 'includes/header.php'; ?>
 
 <?php 
-// Ensure user is logged in
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit;
 }
 
-// Ensure a room_type is provided
 if (!isset($_GET['room_type'])) {
     echo "Room type not specified!";
     exit;
@@ -46,12 +44,10 @@ if ($roomTypeResult->num_rows == 0) {
 
 $roomTypeData = $roomTypeResult->fetch_assoc();
 
-// Check availability when user selects dates
 if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['check_availability'])) {
     $checkInDate = $_POST['check_in_date'];
     $checkOutDate = $_POST['check_out_date'];
 
-    // Get total rooms of the selected type
     $queryTotalRooms = "SELECT COUNT(*) as total_rooms FROM rooms WHERE room_type = ?";
     $stmt = $conn->prepare($queryTotalRooms);
     $stmt->bind_param("s", $roomType);
@@ -59,12 +55,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['check_availability']))
     $totalRoomsResult = $stmt->get_result();
     $totalRooms = $totalRoomsResult->fetch_assoc()['total_rooms'] ?? 0;
 
-    // Check how many rooms are already booked in the selected dates
     $query = "SELECT COUNT(*) AS booked_rooms FROM bookings b 
-          JOIN rooms r ON b.room_id = r.room_id
-          WHERE r.room_type = ? 
-          AND (b.check_in_date < ? AND b.check_out_date > ?)
-          AND b.status = 'completed'";
+              JOIN rooms r ON b.room_id = r.room_id
+              WHERE r.room_type = ? 
+              AND (b.check_in_date < ? AND b.check_out_date > ?)
+              AND b.status = 'completed'";
     
     $stmt = $conn->prepare($query);
     $stmt->bind_param("sss", $roomType, $checkOutDate, $checkInDate);
@@ -72,7 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['check_availability']))
     $bookedRoomsResult = $stmt->get_result();
     $bookedRooms = $bookedRoomsResult->fetch_assoc()['booked_rooms'] ?? 0;
 
-    // Calculate available rooms
     $availableRooms = $totalRooms - $bookedRooms;
 
     if ($availableRooms > 0) {
@@ -82,7 +76,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['check_availability']))
     }
 }
 
-// Process Booking
 if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['confirm_booking'])) {
     if (!empty($availabilityMessage) && strpos($availabilityMessage, 'Sorry') !== false) {
         echo "<p class='error-message'>This room type is not available for the selected dates.</p>";
@@ -90,8 +83,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['confirm_booking'])) {
         $user_id = $_SESSION['user_id'];
         $checkInDate = $_POST['check_in_date'];
         $checkOutDate = $_POST['check_out_date'];
+        $breakfast = $_POST['breakfast'];
+        $breakfast_time = $_POST['breakfast_time'] ?? NULL;
+        $dinner = $_POST['dinner'];
+        $dinner_time = $_POST['dinner_time'] ?? NULL;
+        $additional_services = $_POST['additional_services'] ?? NULL;
 
-        // Find an available room of this type
         $query = "SELECT room_id FROM rooms r WHERE room_type = ? 
                   AND NOT EXISTS (
                       SELECT 1 FROM bookings b 
@@ -108,19 +105,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['confirm_booking'])) {
         if ($availableRoom) {
             $room_id = $availableRoom['room_id'];
 
-            // Calculate total price
             $date1 = new DateTime($checkInDate);
             $date2 = new DateTime($checkOutDate);
             $nights = $date1->diff($date2)->days;
             $totalPrice = $nights * $roomTypeData['price_per_night'];
 
-            // Insert booking into database with payment status = pending
-            $stmt = $conn->prepare("INSERT INTO bookings (user_id, room_id, check_in_date, check_out_date, total_price, status) 
-                                    VALUES (?, ?, ?, ?, ?, 'pending')");
-            $stmt->bind_param("iissd", $user_id, $room_id, $checkInDate, $checkOutDate, $totalPrice);
-            
+            $stmt = $conn->prepare("INSERT INTO bookings (user_id, room_id, check_in_date, check_out_date, total_price, breakfast, breakfast_time, dinner, dinner_time, additional_services, status) 
+                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')");
+            $stmt->bind_param("iissdsssss", $user_id, $room_id, $checkInDate, $checkOutDate, $totalPrice, $breakfast, $breakfast_time, $dinner, $dinner_time, $additional_services);
+
             if ($stmt->execute()) {
-                // Redirect to payment page
                 header("Location: payment.php?booking_id=" . $conn->insert_id);
                 exit();
             } else {
@@ -152,9 +146,28 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['confirm_booking'])) {
                 <input type="date" id="checkOutDate" name="check_out_date" value="<?= $checkOutDate ?>" required>
 
                 <button type="submit" name="check_availability" class="button">Check Availability</button>
-
                 <?= $availabilityMessage; ?>
+                
+                <label>Breakfast:</label>
+                <select name="breakfast">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
+                <label>Time:</label>
+                <input type="time" name="breakfast_time">
 
+                <label>Dinner:</label>
+                <select name="dinner">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
+                <label>Time:</label>
+                <input type="time" name="dinner_time">
+
+                <label>Additional Services:</label>
+                <textarea name="additional_services" placeholder="Specify additional requests"></textarea>
+
+                
                 <button type="submit" name="confirm_booking" class="button">Proceed to Payment</button>
             </form>
         </div>
