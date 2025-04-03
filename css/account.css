@@ -130,3 +130,37 @@ h2 {
         padding: 8px;
     }
 }
+.edit-btn, .save-btn, .cancel-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.edit-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.save-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.cancel-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.edit-account-form {
+    display: none;
+    margin-top: 20px;
+}
+
+.edit-account-form input {
+    display: block;
+    width: 100%;
+    margin: 5px 0;
+    padding: 8px;
+}
