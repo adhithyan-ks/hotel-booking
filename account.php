@@ -42,7 +42,8 @@
             }
 
             echo "<h2>My Bookings</h2>";
-            // Fetch user bookings (only successful)
+
+            // Fetch user bookings
             $query = "SELECT b.*, r.room_type, rt.price_per_night, rt.image_url 
             FROM bookings b 
             JOIN rooms r ON b.room_id = r.room_id
@@ -56,7 +57,7 @@
             $result = $stmt->get_result();
 
             if ($result->num_rows > 0) {
-                echo "<table border='1'>
+                echo "<table class='bookings-table'>
                         <tr>
                             <th>Booking ID</th>
                             <th>Room Type</th>
@@ -65,14 +66,14 @@
                             <th>Status</th>
                             <th>Action</th>
                         </tr>";
-            
+
                 while ($row = $result->fetch_assoc()) {
                     $booking_id = $row['booking_id'];
                     $room_type = $row['room_type'];
                     $check_in = $row['check_in_date'];
                     $check_out = $row['check_out_date'];
-                    $status = $row['status'];
-            
+                    $status = ucfirst($row['status']); // Capitalize status
+
                     echo "<tr>
                             <td>$booking_id</td>
                             <td>$room_type</td>
@@ -80,22 +81,22 @@
                             <td>$check_out</td>
                             <td>$status</td>
                             <td>";
-            
-                    // Show cancel button only if booking is in the future and confirmed
-                    if ($status == 'confirmed' && strtotime($check_in) > time()) {
+
+                    // Show cancel button only if booking is confirmed and in the future
+                    if ($status == 'Confirmed' && strtotime($check_in) > time()) {
                         echo "<form action='cancel_booking.php' method='POST' onsubmit='return confirm(\"Are you sure you want to cancel this booking?\")'>
                                 <input type='hidden' name='booking_id' value='$booking_id'>
-                                <button type='submit'>Cancel Booking</button>
+                                <button type='submit' class='cancel-btn'>Cancel</button>
                               </form>";
                     } else {
                         echo "-";
                     }
-            
+
                     echo "</td></tr>";
                 }
                 echo "</table>";
             } else {
-                echo "<p>You have no bookings.</p>";
+                echo "<p class='no-bookings'>You have no bookings.</p>";
             }
         } else {
             echo "<p class='guest-message'>Welcome, Guest!</p>";
@@ -105,32 +106,10 @@
     </div>
 </main>
 
+
 <?php include 'includes/footer.php'; ?>
 
 <script src="https://kit.fontawesome.com/2e5e758ab7.js" crossorigin="anonymous"></script>
 <script src="js/navbar.js"></script>
 </body>
 </html>
-<?php
-session_start();
-require_once "config.php"; // Database connection
-
-// Check if user is logged in
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
-
-$user_id = $_SESSION['user_id'];
-
-// Fetch user bookings
-$sql = "SELECT * FROM bookings WHERE user_id = ? ORDER BY check_in_date DESC";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $user_id);
-$stmt->execute();
-$result = $stmt->get_result();
-
-echo "<h2>Your Bookings</h2>";
-
-
-?>
