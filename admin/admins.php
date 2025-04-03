@@ -40,12 +40,11 @@
     //Select all records from the users table
     $query = "SELECT * FROM admins";
     $result = $conn->query($query);
-    echo "<table><tr><th>Admin ID</th><th>Admin Name</th><th>Email</th><th>Password</th><th>Created at</th></tr>";
+    echo "<table><tr><th>Admin ID</th><th>Admin Name</th><th>Email</th><th>Created at</th></tr>";
     while ($row = mysqli_fetch_assoc($result)) {
         echo "<tr><td>" . $row['admin_id'] . "</td>";
         echo "<td>" . $row['admin_name'] . "</td>";
         echo "<td> " . $row['email'] . "</td>";
-        echo "<td>" . $row['password'] . "</td>";
         echo "<td>" . $row['created_at'] . "</td></tr>";
     }
     echo "</table>";
