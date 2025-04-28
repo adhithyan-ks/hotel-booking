@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 03, 2025 at 07:43 PM
+-- Generation Time: Apr 28, 2025 at 09:17 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -73,7 +73,9 @@ CREATE TABLE `bookings` (
 --
 
 INSERT INTO `bookings` (`booking_id`, `user_id`, `room_id`, `check_in_date`, `check_out_date`, `total_price`, `status`, `booked_at`, `booking_source`, `admin_id`, `breakfast`, `breakfast_time`, `dinner`, `dinner_time`, `additional_services`) VALUES
-(58, 34, 13, '2025-04-05', '2025-04-06', 5000, 'confirmed', '2025-04-03 17:40:39', 'online', NULL, 'No', '00:00:00', 'No', '00:00:00', 'No food needed');
+(58, 34, 13, '2025-04-05', '2025-04-06', 5000, 'confirmed', '2025-04-03 17:40:39', 'online', NULL, 'No', '00:00:00', 'No', '00:00:00', 'No food needed'),
+(59, 34, 19, '2025-04-28', '2025-04-29', 15000, 'confirmed', '2025-04-27 16:26:04', 'online', NULL, 'No', '00:00:00', 'No', '00:00:00', ''),
+(61, 35, 19, '2025-05-01', '2025-05-02', 15000, 'confirmed', '2025-04-27 16:30:40', 'online', NULL, 'No', '00:00:00', 'No', '00:00:00', '');
 
 -- --------------------------------------------------------
 
@@ -122,7 +124,9 @@ CREATE TABLE `payments` (
 --
 
 INSERT INTO `payments` (`payment_id`, `user_id`, `booking_id`, `amount`, `payment_status`, `payment_method`, `transaction_id`, `created_at`) VALUES
-(26, 34, 58, 5000.00, 'completed', 'upi', 'txn_67eec817d5eca', '2025-04-03 17:40:39');
+(26, 34, 58, 5000.00, 'completed', 'upi', 'txn_67eec817d5eca', '2025-04-03 17:40:39'),
+(27, 34, 59, 15000.00, 'completed', 'upi', 'txn_680e5a9c23c7b', '2025-04-27 16:26:04'),
+(28, 35, 61, 15000.00, 'completed', 'upi', 'txn_680e5bb02f0d4', '2025-04-27 16:30:40');
 
 -- --------------------------------------------------------
 
@@ -211,7 +215,8 @@ INSERT INTO `users` (`user_id`, `name`, `email`, `password`, `phone`, `created_a
 (35, 'Unni', 'unni@gmail.com', 'password', '9966332211', '2025-04-03 07:08:10'),
 (45, 'Sumesh K N', NULL, '', '4444444444', '2025-04-03 14:07:49'),
 (46, 'Sabu', NULL, '', '7777777777', '2025-04-03 14:17:08'),
-(47, 'Abhijith Kannan', NULL, '', '1234567890', '2025-04-03 17:18:28');
+(47, 'Abhijith Kannan', NULL, '', '1234567890', '2025-04-03 17:18:28'),
+(49, 'Adhithyan M', 'adhi360m@gmail.com', 'password', '9099999999', '2025-04-28 05:59:53');
 
 --
 -- Indexes for dumped tables
@@ -279,7 +284,7 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `messages`
@@ -291,7 +296,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `rooms`
@@ -303,7 +308,7 @@ ALTER TABLE `rooms`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- Constraints for dumped tables
